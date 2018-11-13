@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--Authors: Sarah Squillace and Nikita Zala-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.TilePane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1028.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane layoutX="14.0" layoutY="84.0" prefHeight="555.0" prefWidth="752.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="551.0" prefWidth="742.0">
+               <children>
+                  <TilePane layoutX="14.0" layoutY="14.0" prefHeight="551.0" prefWidth="742.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Button layoutX="25.0" layoutY="670.0" mnemonicParsing="false" text="Add photo" />
+      <Button layoutX="134.0" layoutY="670.0" mnemonicParsing="false" text="Delete Photo" />
+      <Label layoutX="346.0" layoutY="58.0" text="Album Name" />
+      <Button layoutX="253.0" layoutY="670.0" mnemonicParsing="false" text="Caption" />
+      <TextField layoutX="208.0" layoutY="714.0" promptText="Enter caption" />
+      <Button layoutX="13.0" layoutY="28.0" mnemonicParsing="false" text="Back to Albums" />
+      <ListView layoutX="794.0" layoutY="84.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="873.0" layoutY="67.0" text="Tags" />
+      <Button layoutX="897.0" layoutY="28.0" mnemonicParsing="false" text="Quit" />
+      <Button layoutX="943.0" layoutY="28.0" mnemonicParsing="false" text="Log out" />
+      <Button layoutX="794.0" layoutY="303.0" mnemonicParsing="false" text="Add tag" />
+      <Button layoutX="910.0" layoutY="303.0" mnemonicParsing="false" text="Delete Tag" />
+      <TextField layoutX="794.0" layoutY="337.0" promptText="Tag name" />
+      <TextField layoutX="794.0" layoutY="372.0" promptText="Tag Value" />
+      <Button layoutX="847.0" layoutY="415.0" mnemonicParsing="false" text="Add tag" />
+      <Button layoutX="499.0" layoutY="670.0" mnemonicParsing="false" text="Copy to another album" />
+      <Button layoutX="664.0" layoutY="670.0" mnemonicParsing="false" text="Move to another album" />
+      <ListView layoutX="820.0" layoutY="595.0" prefHeight="153.0" prefWidth="139.0" />
+      <Label layoutX="866.0" layoutY="578.0" text="Albums" />
+      <Button layoutX="364.0" layoutY="714.0" mnemonicParsing="false" text="Add" />
+      <Button layoutX="364.0" layoutY="670.0" mnemonicParsing="false" text="Open" />
+   </children>
+</AnchorPane>
