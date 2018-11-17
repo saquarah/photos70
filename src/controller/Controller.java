@@ -9,6 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Controller {
+	Stage loginStage;
+	Stage albumStage;
+	
 	Scene loginScene;
 	Scene adminScene;
 	Scene albumHomeScene;
@@ -62,7 +65,18 @@ public class Controller {
 		photoDisplayScene = new Scene(photoDispRoot);
 		photoDisplayController = (Controller) photoDispLoader.getController();
 		
-		primaryStage.setScene(loginScene);
-		primaryStage.show();
+		loginStage = primaryStage;
+		albumStage = new Stage();
+		login();
+	}
+	
+	public void login() {
+		loginStage.setScene(loginScene);
+		loginStage.show();
+	}
+	
+	public void admin() {
+		loginStage.setScene(adminScene);
+		loginStage.show();
 	}
 }
