@@ -1,5 +1,5 @@
 package controller;
 
-public class AlbumHomeController {
+public class AlbumHomeController extends Controller{
 
 }

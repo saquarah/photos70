@@ -1,5 +1,5 @@
 package controller;
 
-public class PhotosController {
+public class PhotosController extends Controller{
 
 }
