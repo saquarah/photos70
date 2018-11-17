@@ -8,11 +8,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="373.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="373.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
-      <TextField layoutX="60.0" layoutY="247.0" promptText="Enter username" />
-      <Button layoutX="221.0" layoutY="247.0" mnemonicParsing="false" text="Log In" />
+      <TextField fx:id="loginTxt" layoutX="60.0" layoutY="247.0" promptText="Enter username" />
+      <Button fx:id="loginButton" layoutX="221.0" layoutY="247.0" mnemonicParsing="false" onAction="#checkUserName" text="Log In" />
       <Label layoutX="104.0" layoutY="136.0" prefHeight="56.0" prefWidth="149.0" text="Photo Library" textAlignment="CENTER">
          <font>
             <Font size="24.0" />

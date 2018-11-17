@@ -1,10 +1,11 @@
 package application;
 
+import controller.Controller;
 import javafx.application.Application;
-import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
 
 
 public class Photos extends Application{
@@ -17,6 +18,7 @@ public class Photos extends Application{
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			Controller controller = new Controller(primaryStage);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
