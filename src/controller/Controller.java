@@ -14,6 +14,7 @@ public class Controller {
 	static Stage loginStage;
 	static Stage albumStage;
 	
+	
 	static Scene loginScene;
 	static Scene adminScene;
 	static Scene albumHomeScene;
@@ -85,15 +86,31 @@ public class Controller {
 		primaryStage.show();
 	}
 	
+	/**
+	 * Hides current scene and loads admin scene 
+	 */
 	public static void toAdmin() {
 		primaryStage.hide();
-		Stage adminStage = new Stage();
-		adminStage.setScene(adminScene);
-		adminStage.show();
-	//	primaryStage.show();
+		primaryStage.setScene(adminScene);
+		//Stage adminStage = new Stage();
+		//adminStage.setScene(adminScene);
+		//adminStage.show();
+		primaryStage.show();
 	}
 	
 	public void initialize() {
 		
 	}
+	/**
+	 * Hides current stage and shows login scene. 
+	 */
+	
+	public static void BackfromAdmin() {
+		primaryStage.hide();
+		primaryStage.setScene(loginScene);
+		
+		primaryStage.show();
+	}
+	
+	
 }

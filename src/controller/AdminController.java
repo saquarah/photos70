@@ -46,7 +46,12 @@ public class AdminController extends Controller{
 	}
 	
 	@FXML
+	/**
+	 * Allows admin to go to login screen on clicking back button
+	 * @param e
+	 */
 	public void goBackToAlbum(ActionEvent e) {
+		BackfromAdmin();
 		
 	}
 	
