@@ -33,7 +33,9 @@ public class AdminController extends Controller{
 	@FXML void saveUser(ActionEvent e) {
 		String userName = userNameTxt.getText();
 		User user = new User(userName);
-		if(userList.contains(user))
+		if(userList.contains(user)) {
+			
+		}
 		hideAdditionElements();
 	}
 	
