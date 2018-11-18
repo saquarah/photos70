@@ -2,12 +2,13 @@ package controller;
 
 import java.io.IOException;
 
-import javafx.fxml.FXML;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.User;
 
 public class Controller {
 	static Stage loginStage;
@@ -27,6 +28,7 @@ public class Controller {
 	
 	static Stage primaryStage;
 	
+	ObservableList<User> userList = FXCollections.observableArrayList();
 	
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -49,6 +51,7 @@ public class Controller {
 		adminScene = new Scene(adminRoot);
 		adminController = adminLoader.getController();
 		adminController.setPrimaryStage(primaryStage);
+		
 		
 		FXMLLoader albumLoader = new FXMLLoader();
 		albumLoader.setLocation(Controller.class.getResource("/view/AlbumHome.fxml"));
@@ -73,16 +76,24 @@ public class Controller {
 		login();
 	}
 	
+	public void initializeUserList() {
+		
+	}
+	
 	public static void login() {
 		primaryStage.setScene(loginScene);
 		primaryStage.show();
 	}
 	
-	public static void admin() {
+	public static void toAdmin() {
 		primaryStage.hide();
 		Stage adminStage = new Stage();
 		adminStage.setScene(adminScene);
 		adminStage.show();
 	//	primaryStage.show();
+	}
+	
+	public void initialize() {
+		
 	}
 }

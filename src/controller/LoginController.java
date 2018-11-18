@@ -25,6 +25,6 @@ public class LoginController extends Controller{
 //		} else {
 //			show an error message indicating that the username does not exist
 //		}
-		admin();
+		toAdmin();
 	}
 }
