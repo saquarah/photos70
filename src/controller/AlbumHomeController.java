@@ -54,6 +54,21 @@ public class AlbumHomeController extends Controller{
 	}
 	
 	@FXML
+	public void search(ActionEvent e) {
+		
+	}
+	
+	@FXML
+	public void createNewAlbumWithResults(ActionEvent e) {
+		
+	}
+	
+	@FXML
+	public void openAlbum(ActionEvent e) {
+		
+	}
+	
+	@FXML
 	public void logout(ActionEvent e) {
 		
 	}

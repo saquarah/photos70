@@ -44,7 +44,7 @@
       <TextField fx:id="endDateTxt" layoutX="891.0" layoutY="148.0" prefHeight="25.0" prefWidth="90.0" promptText="End Date" />
       <Label layoutX="872.0" layoutY="152.0" text="TO" />
       <Button fx:id="searchB" layoutX="854.0" layoutY="390.0" mnemonicParsing="false" onAction="#search" text="Search" />
-      <Button fx:id="newAlbumResultsB" layoutX="800.0" layoutY="420.0" mnemonicParsing="false" onAction="#createNewALbumWithResults" text="Create new album with results" />
+      <Button fx:id="newAlbumResultsB" layoutX="800.0" layoutY="420.0" mnemonicParsing="false" onAction="#createNewAlbumWithResults" text="Create new album with results" />
       <Label layoutX="346.0" layoutY="58.0" text="Albums" />
       <Button fx:id="openB" layoutX="271.0" layoutY="370.0" mnemonicParsing="false" onAction="#openAlbum" text="Open album" />
    </children>
