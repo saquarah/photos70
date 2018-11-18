@@ -34,6 +34,12 @@ public class AdminController extends Controller{
 		String userName = userNameTxt.getText();
 		User user = new User(userName);
 		if(userList.contains(user)) {
+			//give error
+			userNameTxt.clear();
+		}
+		else {
+			userList.add(user);
+			userNameTxt.clear();
 			
 		}
 		hideAdditionElements();
