@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.User;
@@ -132,6 +133,23 @@ public class Controller {
 		
 		
 		return found;
+	}
+	
+	/**
+	 * Deletes selected user from listView. Cannot remove admin. 
+	 * @param i
+	 */
+	public void deleteUser(int i) {
+		if(userList.get(i).toString().equals("admin")) {
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setContentText("Cannot remove admin.");
+            alert.showAndWait();
+		}else {
+		userList.remove(i); 
+		}
+	   
+	
 	}
 	
 	

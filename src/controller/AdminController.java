@@ -26,9 +26,14 @@ public class AdminController extends Controller{
 		saveB.setVisible(true);
 	}
 	
+	/**
+	 * Gets selected index of users from userList and deletes the user.
+	 * @param e
+	 */
 	@FXML
 	public void deleteUser(ActionEvent e) {
-		
+		int i = userListView.getSelectionModel().getSelectedIndex();
+		deleteUser(i);
 	}
 	
 	@FXML void saveUser(ActionEvent e) {
@@ -62,6 +67,7 @@ public class AdminController extends Controller{
 				userList.add(user);
 				System.out.println(userList.toString());
 				userNameTxt.clear();
+				//userListView.refresh();
 			}
 			
 		}
