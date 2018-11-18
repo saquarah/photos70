@@ -15,7 +15,7 @@ public class Photos extends Application{
 		try {
 			
 			Controller controller = new Controller();
-			controller.initializeFXML(primaryStage);
+			Controller.initializeFXML(primaryStage);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

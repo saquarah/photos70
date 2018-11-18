@@ -4,79 +4,85 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Controller {
-	Stage loginStage;
-	Stage albumStage;
+	static Stage loginStage;
+	static Stage albumStage;
 	
-	Scene loginScene;
-	Scene adminScene;
-	Scene albumHomeScene;
-	Scene photosScene;
-	Scene photoDisplayScene;
+	static Scene loginScene;
+	static Scene adminScene;
+	static Scene albumHomeScene;
+	static Scene photosScene;
+	static Scene photoDisplayScene;
 	
-	Controller loginController;
-	Controller adminController;
-	Controller albumController;
-	Controller photosController;
-	Controller photoDisplayController;
+	static Controller loginController;
+	static Controller adminController;
+	static Controller albumController;
+	static Controller photosController;
+	static Controller photoDisplayController;
 	
-	Stage primaryStage;
+	static Stage primaryStage;
 	
-	@FXML
-	AnchorPane basePane;
 	
-
-
-	
-	public void initializeFXML(Stage primaryStage) throws IOException {
+	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
+	}
+
+	
+	public static void initializeFXML(Stage primaryStage) throws IOException {
+		Controller.primaryStage = primaryStage;
 		
 		FXMLLoader logLoader = new FXMLLoader();
-		logLoader.setLocation(getClass().getResource("/view/Login.fxml"));
+		logLoader.setLocation(Controller.class.getResource("/view/Login.fxml"));
 		AnchorPane loginRoot = (AnchorPane)logLoader.load();
 		loginScene = new Scene(loginRoot);
-		loginController = (Controller) logLoader.getController();
+		loginController = logLoader.getController();
+		loginController.setPrimaryStage(primaryStage);
 		
 		FXMLLoader adminLoader = new FXMLLoader();
-		adminLoader.setLocation(getClass().getResource("/view/Admin.fxml"));
+		adminLoader.setLocation(Controller.class.getResource("/view/Admin.fxml"));
 		AnchorPane adminRoot = (AnchorPane)adminLoader.load();
 		adminScene = new Scene(adminRoot);
-		adminController = (Controller) adminLoader.getController();
+		adminController = adminLoader.getController();
+		adminController.setPrimaryStage(primaryStage);
 		
 		FXMLLoader albumLoader = new FXMLLoader();
-		albumLoader.setLocation(getClass().getResource("/view/AlbumHome.fxml"));
+		albumLoader.setLocation(Controller.class.getResource("/view/AlbumHome.fxml"));
 		AnchorPane albumRoot = (AnchorPane)albumLoader.load();
 		albumHomeScene = new Scene(albumRoot);
-		albumController = (Controller) albumLoader.getController();
+		albumController = albumLoader.getController();
 		
 		FXMLLoader photosLoader = new FXMLLoader();
-		photosLoader.setLocation(getClass().getResource("/view/Photos.fxml"));
+		photosLoader.setLocation(Controller.class.getResource("/view/Photos.fxml"));
 		AnchorPane photosRoot = (AnchorPane)photosLoader.load();
 		photosScene = new Scene(photosRoot);
-		photosController = (Controller) photosLoader.getController();
+		photosController = photosLoader.getController();
 		
 		FXMLLoader photoDispLoader = new FXMLLoader();
-		photoDispLoader.setLocation(getClass().getResource("/view/PhotoDisplay.fxml"));
+		photoDispLoader.setLocation(Controller.class.getResource("/view/PhotoDisplay.fxml"));
 		AnchorPane photoDispRoot = (AnchorPane)photoDispLoader.load();
 		photoDisplayScene = new Scene(photoDispRoot);
-		photoDisplayController = (Controller) photoDispLoader.getController();
+		photoDisplayController = photoDispLoader.getController();
 		
 		loginStage = primaryStage;
 		albumStage = new Stage();
 		login();
 	}
 	
-	public void login() {
-		loginStage.setScene(loginScene);
-		loginStage.show();
+	public static void login() {
+		primaryStage.setScene(loginScene);
+		primaryStage.show();
 	}
 	
-	public void admin() {
-		loginStage.setScene(adminScene);
-		loginStage.show();
+	public static void admin() {
+		primaryStage.hide();
+		Stage adminStage = new Stage();
+		adminStage.setScene(adminScene);
+		adminStage.show();
+	//	primaryStage.show();
 	}
 }
