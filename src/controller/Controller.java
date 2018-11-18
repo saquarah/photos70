@@ -29,6 +29,8 @@ public class Controller {
 	
 	static Stage primaryStage;
 	
+	private User name;
+	
 	ObservableList<User> userList = FXCollections.observableArrayList();
 	
 	public void setPrimaryStage(Stage primaryStage) {
@@ -110,6 +112,26 @@ public class Controller {
 		primaryStage.setScene(loginScene);
 		
 		primaryStage.show();
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @param usr
+	 * @return boolean value as true if user found
+	 */
+	public boolean isUser(String usr) {
+		boolean found=false;
+		for (int i=0;i<userList.size();i++) {
+			if(userList.get(i).toString().equals(usr)) {
+				found = true;
+			}
+		}
+		
+		
+		
+		return found;
 	}
 	
 	
