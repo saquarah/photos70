@@ -14,7 +14,6 @@ public class LoginController extends Controller{
 	
 	@FXML
 	Button loginButton;
-	
 	public void checkUserName(ActionEvent e) {
 		String userString = loginTxt.getText().trim();
 //		 TODO implement this
@@ -33,15 +32,21 @@ public class LoginController extends Controller{
 			alert.showAndWait();
         
 		}else {
-			if (userString.equals("admin")) {
-				
-				toAdmin();
-				loginTxt.clear(); //clears login text 
-			}else {
-				
+			if(userInList(userString)) {
+				if (userString.equals("admin")) {
+					
+					toAdmin();
+					loginTxt.clear(); //clears login text 
+				} else {
 					toAlbum();
 					loginTxt.clear();
-			
+					
+				}
+			} else {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setTitle("Error");
+	            alert.setContentText("User does not exist.");
+	            alert.showAndWait();
 				}
 			}
 		}

@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Album;
 import model.User;
 
 public class Controller {
@@ -30,12 +31,13 @@ public class Controller {
 	
 	static Stage primaryStage;
 	
-	private User name;
+	private User user;
 	
 	ObservableList<User> userList = FXCollections.observableArrayList();
-	
+	ObservableList<Album> albumList = FXCollections.observableArrayList();
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
+		initializeUserList();
 	}
 
 	
@@ -77,11 +79,25 @@ public class Controller {
 		
 		loginStage = primaryStage;
 		albumStage = new Stage();
+		
+		
 		login();
+		
+		/*
+		 * NOTE
+		 * We may have to eventually change this so that we do not load the
+		 * controllers all at once, but rather, we load the login controller,
+		 * then once the user is logged in we load the album home controller,
+		 * then once we enter an album we load the photoscontroller, etc.
+		 * This is because each controller must load all the data they need upon 
+		 * creation. So if we load them all at once, we are loading the Photos
+		 * controller before we even know what user is using the application.
+		 * 
+		 */
 	}
 	
 	public void initializeUserList() {
-		
+		userList.add(new User("admin"));
 	}
 	
 	public static void login() {
@@ -109,15 +125,15 @@ public class Controller {
 	}
 	
 	public void initialize() {
-		
+		userList.add(new User("admin")); // this is for testing
+		// we will delete later when we load the users from the files
 	}
 	/**
 	 * Hides current stage and shows login scene. 
 	 */
-	
 	public static void BackfromAdmin() {
 		primaryStage.hide();
-		primaryStage.setScene(loginScene);
+		primaryStage.setScene(albumHomeScene);
 		
 		primaryStage.show();
 	}
@@ -129,18 +145,15 @@ public class Controller {
 	 * @param usr
 	 * @return boolean value as true if user found
 	 */
-	public boolean isUser(String usr) {
+	public boolean userInList(String usr) {
 		boolean found=false;
 		//System.out.println("isUser called"+userList.size());
 		for (int i=0;i<userList.size();i++) {
 			//System.out.println(userList.get(i).toString());
-			if(userList.get(i).toString().equals(usr)) {
+			if(userList.get(i).getUserName().equals(usr)) {
 				found = true;
 			}
-		}
-		
-		
-		
+		}	
 		return found;
 	}
 	
@@ -165,7 +178,7 @@ public class Controller {
 	 * setting current user
 	 */
 	public void setUser(User usr) {
-		this.name = usr;
+		this.user = usr;
 	}
 	
 	

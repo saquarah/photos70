@@ -33,14 +33,16 @@ public class AdminController extends Controller{
 	@FXML
 	public void deleteUser(ActionEvent e) {
 		int i = userListView.getSelectionModel().getSelectedIndex();
+//		User deletMe = userListView.getSelectionModel().getSelectedItem();
+//		userList.remove(deletMe); this would work too just put the admin warning
 		deleteUser(i);
 	}
 	
 	@FXML void saveUser(ActionEvent e) {
 		String userName = userNameTxt.getText();
-		User user = new User(userName);
+		
 		if(userName.isEmpty()) {
-			Alert alert = new Alert(Alert.AlertType.WARNING);
+			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("User name cannot be blank.");
             alert.showAndWait();
@@ -59,15 +61,19 @@ public class AdminController extends Controller{
 			//userList.add(user);
 			
 			//checks if user is in list
-			if(isUser(userName)) {
+			if(userInList(userName)) {
 				
-				System.out.println("user is already there");
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setTitle("Error");
+	            alert.setContentText("User name already exists.");
+	            alert.showAndWait();
 				userNameTxt.clear();
 			}else {
+				User user = new User(userName);
 				userList.add(user);
-				System.out.println(userList.toString());
 				userNameTxt.clear();
 				//userListView.refresh();
+				userListView.setItems(userList);
 			}
 			
 		}
@@ -97,7 +103,7 @@ public class AdminController extends Controller{
 	@Override
 	public void initialize() {
 		hideAdditionElements();
-		userListView = new ListView<User>();
+	//	initializeUserList();
 		// TODO fill list with saved users
 		
 //		if(userList.size() > 0) {
@@ -105,6 +111,7 @@ public class AdminController extends Controller{
 //		}
 		
 		userListView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> selectUser());
+		userListView.setItems(userList);
 	}
 	
 	private void selectUser() {
