@@ -112,12 +112,10 @@ public class PhotosController extends Controller{
 		
 	}
 	
-	public void start() {
-		
-	}
-	
-	private void fillPhotoList() {
-		
+	public void start(Album thisAlbum) {
+		for(int i = 0; i < thisAlbum.getPhotos().size(); i++) {
+			photoList.add(thisAlbum.getPhotos().get(i));
+		}
 	}
 	
 	

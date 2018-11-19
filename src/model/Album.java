@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Album implements Serializable{
@@ -9,6 +10,7 @@ public class Album implements Serializable{
 	
 	public Album(String name) {
 		this.name = name;
+		this.photos = new ArrayList<Photo>();
 	}
 	
 	public String getName() {
@@ -21,5 +23,9 @@ public class Album implements Serializable{
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public List<Photo> getPhotos() {
+		return photos;
 	}
 }

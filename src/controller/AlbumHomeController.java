@@ -119,9 +119,15 @@ public class AlbumHomeController extends Controller{
 	
 	@FXML
 	public void openAlbum(ActionEvent e) {
-		primaryStage.hide();
-		primaryStage.setScene(photoDisplayScene);
-		primaryStage.show();
+		if(selectedAlbum == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No album selected.");
+            alert.showAndWait();
+            return;
+		} else {
+			openThisAlbum(selectedAlbum);
+		}
 		
 	}
 	

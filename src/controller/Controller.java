@@ -136,6 +136,14 @@ public class Controller {
 		primaryStage.hide();
 		primaryStage.setScene(photosScene);
 		photosController.start();
+		primaryStage.show();
+	}
+	
+	public static void openThisAlbum(Album thisAlbum) {
+		primaryStage.hide();
+		primaryStage.setScene(photosScene);
+		photosController.start(thisAlbum);
+		primaryStage.show();
 	}
 	
 	public void initialize() {
@@ -144,6 +152,10 @@ public class Controller {
 	}
 	
 	public void start() {
+		
+	}
+	
+	public void start(Album album) {
 		
 	}
 	/**
