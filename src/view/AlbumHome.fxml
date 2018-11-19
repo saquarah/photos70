@@ -5,23 +5,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1028.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AlbumHomeController">
    <children>
-      <ScrollPane layoutX="14.0" layoutY="84.0" prefHeight="279.0" prefWidth="743.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="137.0" prefWidth="125.0">
-               <children>
-                  <TilePane fx:id="tilePane" layoutX="7.0" prefHeight="279.0" prefWidth="743.0" AnchorPane.bottomAnchor="-142.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-618.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
       <Button fx:id="adminB" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#adminPressed" prefHeight="52.0" prefWidth="90.0" text="Admin">
          <font>
             <Font size="18.0" />
@@ -36,16 +26,17 @@
       <Button fx:id="quitB" layoutX="897.0" layoutY="28.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
       <ComboBox fx:id="searchOptionBox" layoutX="805.0" layoutY="107.0" prefWidth="150.0" promptText="Search Options" />
       <TextField fx:id="firstTagNameTxt" layoutX="777.0" layoutY="193.0" prefHeight="25.0" prefWidth="90.0" promptText="Tag name" />
-      <Label layoutX="857.0" layoutY="218.0" text="AND/OR" />
+      <Label fx:id="typeSearchLbl" layoutX="857.0" layoutY="218.0" text="AND/OR" />
       <TextField fx:id="firstTagValueTxt" layoutX="898.0" layoutY="193.0" prefHeight="25.0" prefWidth="90.0" promptText="Tag value" />
       <TextField fx:id="secondTagNameTxt" layoutX="777.0" layoutY="233.0" prefHeight="25.0" prefWidth="90.0" promptText="Tag name" />
       <TextField fx:id="secondTagValueTxt" layoutX="898.0" layoutY="233.0" prefHeight="25.0" prefWidth="90.0" promptText="Tag value" />
       <TextField fx:id="startDateTxt" layoutX="777.0" layoutY="148.0" prefHeight="25.0" prefWidth="90.0" promptText="Start Date" />
       <TextField fx:id="endDateTxt" layoutX="891.0" layoutY="148.0" prefHeight="25.0" prefWidth="90.0" promptText="End Date" />
-      <Label layoutX="872.0" layoutY="152.0" text="TO" />
+      <Label fx:id="dateLbl" layoutX="872.0" layoutY="152.0" text="TO" />
       <Button fx:id="searchB" layoutX="854.0" layoutY="390.0" mnemonicParsing="false" onAction="#search" text="Search" />
       <Button fx:id="newAlbumResultsB" layoutX="800.0" layoutY="420.0" mnemonicParsing="false" onAction="#createNewAlbumWithResults" text="Create new album with results" />
       <Label layoutX="346.0" layoutY="58.0" text="Albums" />
       <Button fx:id="openB" layoutX="271.0" layoutY="370.0" mnemonicParsing="false" onAction="#openAlbum" text="Open album" />
+      <ListView fx:id="albumListView" layoutX="14.0" layoutY="84.0" prefHeight="279.0" prefWidth="743.0" />
    </children>
 </AnchorPane>

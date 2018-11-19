@@ -88,8 +88,7 @@ public class AdminController extends Controller{
 	 * @param e
 	 */
 	public void goBackToAlbum(ActionEvent e) {
-		BackfromAdmin();
-		
+		toAlbum();
 	}
 	
 	public void hideAdditionElements() {

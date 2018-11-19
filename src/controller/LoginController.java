@@ -41,7 +41,7 @@ public class LoginController extends Controller{
 				setUser(userLoggingIn);
 				if (userString.equals("admin")) {
 					
-					toAdmin();
+					toAlbum();
 					loginTxt.clear(); //clears login text 
 				} else {
 					toAlbum();
