@@ -39,7 +39,7 @@ public class AdminController extends Controller{
 	}
 	
 	@FXML void saveUser(ActionEvent e) {
-		String userName = userNameTxt.getText();
+		String userName = userNameTxt.getText().trim();
 		
 		if(userName.isEmpty()) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);

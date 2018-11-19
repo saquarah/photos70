@@ -26,6 +26,9 @@ public class LoginController extends Controller{
 //		} else {
 //			show an error message indicating that the username does not exist
 //		}
+		if(userString.equals("zak")) {
+			System.out.print("");
+		}
 		if(userString.isEmpty()) {
 			Alert alert = new Alert(Alert.AlertType.WARNING);
 			alert.setTitle("Error");

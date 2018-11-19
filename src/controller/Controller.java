@@ -33,16 +33,16 @@ public class Controller {
 	
 	private User user;
 	
-	ObservableList<User> userList = FXCollections.observableArrayList();
-	ObservableList<Album> albumList = FXCollections.observableArrayList();
+	static ObservableList<User> userList = FXCollections.observableArrayList();
+	static ObservableList<Album> albumList = FXCollections.observableArrayList();
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		initializeUserList();
 	}
 
 	
 	public static void initializeFXML(Stage primaryStage) throws IOException {
 		Controller.primaryStage = primaryStage;
+		initializeUserList();
 		
 		FXMLLoader logLoader = new FXMLLoader();
 		logLoader.setLocation(Controller.class.getResource("/view/Login.fxml"));
@@ -96,7 +96,7 @@ public class Controller {
 		 */
 	}
 	
-	public void initializeUserList() {
+	public static void initializeUserList() {
 		userList.add(new User("admin"));
 	}
 	
@@ -125,7 +125,7 @@ public class Controller {
 	}
 	
 	public void initialize() {
-		userList.add(new User("admin")); // this is for testing
+		//userList.add(new User("admin")); // this is for testing
 		// we will delete later when we load the users from the files
 	}
 	/**
