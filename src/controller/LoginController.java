@@ -2,6 +2,7 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -15,7 +16,7 @@ public class LoginController extends Controller{
 	Button loginButton;
 	
 	public void checkUserName(ActionEvent e) {
-		String userString = loginTxt.getText();
+		String userString = loginTxt.getText().trim();
 //		 TODO implement this
 //		if(userString is in list of users ) {
 //			check if userString is admin
@@ -25,8 +26,24 @@ public class LoginController extends Controller{
 //		} else {
 //			show an error message indicating that the username does not exist
 //		}
-		
-		toAdmin();
-		loginTxt.clear(); //clears login text 
+		if(userString.isEmpty()) {
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setContentText("User name cannot be blank.");
+			alert.showAndWait();
+        
+		}else {
+			if (userString.equals("admin")) {
+				
+				toAdmin();
+				loginTxt.clear(); //clears login text 
+			}else {
+				
+					toAlbum();
+					loginTxt.clear();
+			
+				}
+			}
+		}
 	}
-}
+

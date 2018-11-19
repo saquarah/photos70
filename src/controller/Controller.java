@@ -101,6 +101,13 @@ public class Controller {
 		primaryStage.show();
 	}
 	
+	public static void toAlbum() {
+		primaryStage.hide();
+		primaryStage.setScene(albumHomeScene);
+		
+		primaryStage.show();
+	}
+	
 	public void initialize() {
 		
 	}
@@ -124,7 +131,9 @@ public class Controller {
 	 */
 	public boolean isUser(String usr) {
 		boolean found=false;
+		//System.out.println("isUser called"+userList.size());
 		for (int i=0;i<userList.size();i++) {
+			//System.out.println(userList.get(i).toString());
 			if(userList.get(i).toString().equals(usr)) {
 				found = true;
 			}
@@ -151,6 +160,17 @@ public class Controller {
 	   
 	
 	}
+	
+	/**
+	 * setting current user
+	 */
+	public void setUser(User usr) {
+		this.name = usr;
+	}
+	
+	
+	
+	
 	
 	
 }
