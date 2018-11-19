@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.User;
 
 public class LoginController extends Controller{
 	
@@ -33,6 +34,8 @@ public class LoginController extends Controller{
         
 		}else {
 			if(userInList(userString)) {
+				User userLoggingIn = getUserFromName(userString);
+				setUser(userLoggingIn);
 				if (userString.equals("admin")) {
 					
 					toAdmin();
@@ -50,5 +53,13 @@ public class LoginController extends Controller{
 				}
 			}
 		}
+	private User getUserFromName(String name) {
+		for(User u : userList) {
+			if(u.getUserName().equals(name)) {
+				return u;
+			}
+		}
+		return null;
+	}
 	}
 

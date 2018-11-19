@@ -133,7 +133,7 @@ public class Controller {
 	 */
 	public static void BackfromAdmin() {
 		primaryStage.hide();
-		primaryStage.setScene(albumHomeScene);
+		primaryStage.setScene(loginScene);
 		
 		primaryStage.show();
 	}
