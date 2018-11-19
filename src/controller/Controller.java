@@ -31,7 +31,7 @@ public class Controller {
 	
 	static Stage primaryStage;
 	
-	private User user;
+	private static User user;
 	
 	static ObservableList<User> userList = FXCollections.observableArrayList();
 	static ObservableList<Album> albumList = FXCollections.observableArrayList();
@@ -120,6 +120,14 @@ public class Controller {
 	public static void toAlbum() {
 		primaryStage.hide();
 		primaryStage.setScene(albumHomeScene);
+		albumController.start();
+		primaryStage.show();
+	}
+	
+	public static void logout() {
+		primaryStage.hide();
+		primaryStage.setScene(loginScene);
+		user = null;
 		
 		primaryStage.show();
 	}
@@ -127,6 +135,10 @@ public class Controller {
 	public void initialize() {
 		//userList.add(new User("admin")); // this is for testing
 		// we will delete later when we load the users from the files
+	}
+	
+	public void start() {
+		
 	}
 	/**
 	 * Hides current stage and shows login scene. 
@@ -177,11 +189,13 @@ public class Controller {
 	/**
 	 * setting current user
 	 */
-	public void setUser(User usr) {
-		this.user = usr;
+	public static void setUser(User usr) {
+		user = usr;
 	}
 	
-	
+	public static User currentUser() {
+		return user;
+	}
 	
 	
 	

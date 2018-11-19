@@ -30,6 +30,17 @@ public class AlbumHomeController extends Controller{
 	
 	public void initialize() {
 		
+		// this should load in the user albums
+		// and also update the albumList in Controller
+//		if(!currentUser().getUserName().equals("admin")) {
+//			adminB.setVisible(false);
+		
+	}
+	
+	public void start() {
+		if(!currentUser().getUserName().equals("admin")) {
+			adminB.setVisible(false);
+		}
 	}
 	
 	@FXML
@@ -74,7 +85,7 @@ public class AlbumHomeController extends Controller{
 	
 	@FXML
 	public void logout(ActionEvent e) {
-		
+		logout();
 	}
 	
 	@FXML
