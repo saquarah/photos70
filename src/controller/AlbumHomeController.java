@@ -128,6 +128,7 @@ public class AlbumHomeController extends Controller{
 	
 	@FXML
 	public void quit(ActionEvent e) {
+		Platform.exit();
 		
 	}
 	
