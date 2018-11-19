@@ -28,6 +28,10 @@ public class AlbumHomeController extends Controller{
 	@FXML
 	TextField startDateTxt, endDateTxt;
 	
+	public void initialize() {
+		
+	}
+	
 	@FXML
 	public void adminPressed(ActionEvent e) {
 		
@@ -77,4 +81,5 @@ public class AlbumHomeController extends Controller{
 	public void quit(ActionEvent e) {
 		
 	}
+
 }

@@ -1,14 +1,30 @@
 package controller;
 
+import java.io.File;
+import java.util.Calendar;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.TilePane;
+import javafx.stage.FileChooser;
 import model.Album;
+import model.Photo;
 import model.Tag;
 
 public class PhotosController extends Controller{
+	ObservableList<Photo> photoList = FXCollections.observableArrayList();
+	
+	Album currentAlbum;
+	
+	@FXML
+	TilePane tilePane;
+	
 	@FXML
 	Button addPhotoB, deletePhotoB,  backToAlbumB, quitB, logoutB, addTagB, deleteTagB, saveTagB, copyToOtherAlbumB;
 	@FXML
@@ -25,7 +41,11 @@ public class PhotosController extends Controller{
 	
 	@FXML
 	public void addPhoto(ActionEvent e) {
-		
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Select image");
+		File file = fc.showOpenDialog(primaryStage);
+		Photo newPhoto = fileToPhoto(file);
+		photoList.add(newPhoto);
 	}
 	
 	@FXML
@@ -88,4 +108,20 @@ public class PhotosController extends Controller{
 		
 	}
 	
+	public void initialize() {
+		
+	}
+	
+	private void fillPhotoList() {
+		
+	}
+	
+	private Photo fileToPhoto(File file) {
+		Calendar date = Calendar.getInstance();
+		date.setTimeInMillis(file.lastModified());
+		Image image = new Image(file.toURI().toString());
+		Photo photo = new Photo(image, date, file);
+		return photo;
+		
+	}
 }
