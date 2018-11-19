@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -118,6 +119,9 @@ public class AlbumHomeController extends Controller{
 	
 	@FXML
 	public void openAlbum(ActionEvent e) {
+		primaryStage.hide();
+		primaryStage.setScene(photoDisplayScene);
+		primaryStage.show();
 		
 	}
 	
@@ -128,6 +132,8 @@ public class AlbumHomeController extends Controller{
 	
 	@FXML
 	public void quit(ActionEvent e) {
+
+		Platform.exit();
 		
 	}
 	

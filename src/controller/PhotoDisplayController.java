@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,16 +34,21 @@ public class PhotoDisplayController extends Controller{
 	
 	@FXML
 	public void backToAlbum(ActionEvent e) {
+		primaryStage.hide();
+		primaryStage.setScene(albumHomeScene);
+		albumController.start();
+		primaryStage.show();
 		
 	}
 	
 	@FXML
 	public void logout(ActionEvent e) {
+		logout();
 		
 	}
 	
 	@FXML
 	public void quit(ActionEvent e) {
-		
+		Platform.exit();
 	}
 }
