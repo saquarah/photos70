@@ -35,10 +35,10 @@ public class AlbumHomeController extends Controller{
 	TextField startDateTxt, endDateTxt;
 	
 	Album selectedAlbum;
+	
+	boolean adding = false;
 	public void initialize() {
 		
-		// this should load in the user albums nvm dont do this lol
-		// and also update the albumList in Controller
 	}
 	
 	public void start() {
@@ -57,30 +57,53 @@ public class AlbumHomeController extends Controller{
 	
 	@FXML
 	public void createAlbum(ActionEvent e) {
+		adding = true;
+		albumNameTxt.setPromptText("Enter name");
 		setCreationVisibility(true);
 	}
 	
 	@FXML
 	public void renameAlbum(ActionEvent e) {
-		
+		adding = false;
+		albumNameTxt.setPromptText("Enter new name");
+		setCreationVisibility(true);
 	}
 	
 	@FXML
 	public void deleteAlbum(ActionEvent e) {
-		
+		if(selectedAlbum != null) {
+			albumList.remove(selectedAlbum);
+			albumListView.refresh();
+			albumListView.getSelectionModel().select(0);
+			selectedAlbum = albumListView.getSelectionModel().getSelectedItem();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No album selected.");
+            alert.showAndWait();
+            return;
+		}
 	}
 	
 	@FXML
 	public void saveAlbum(ActionEvent e) {
-		if(albumNameTxt.getText().trim().length() == 0) {
+		String albumName = albumNameTxt.getText().trim();
+		if(albumName.length() == 0) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("No name entered.");
             alert.showAndWait();
             return;
 		}
-		
-		
+		if(adding) {
+			Album newAlbum = new Album(albumName);
+			albumList.add(newAlbum);
+		} else {
+			selectedAlbum.setName(albumName);
+		}
+		albumListView.refresh();
+		setCreationVisibility(false);
+		albumNameTxt.clear();
 	}
 	
 	@FXML
@@ -113,7 +136,7 @@ public class AlbumHomeController extends Controller{
 	}
 	
 	private void selectAlbum() {
-		
+		selectedAlbum = albumListView.getSelectionModel().getSelectedItem();
 	}
 	
 	private void setCreationVisibility(boolean visibility) {

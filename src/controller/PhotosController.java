@@ -112,9 +112,14 @@ public class PhotosController extends Controller{
 		
 	}
 	
+	public void start() {
+		
+	}
+	
 	private void fillPhotoList() {
 		
 	}
+	
 	
 	private Photo fileToPhoto(File file) {
 		Calendar date = Calendar.getInstance();

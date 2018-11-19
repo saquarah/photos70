@@ -132,6 +132,12 @@ public class Controller {
 		primaryStage.show();
 	}
 	
+	public static void toPhotos() {
+		primaryStage.hide();
+		primaryStage.setScene(photosScene);
+		photosController.start();
+	}
+	
 	public void initialize() {
 		//userList.add(new User("admin")); // this is for testing
 		// we will delete later when we load the users from the files
