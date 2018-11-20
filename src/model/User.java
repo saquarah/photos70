@@ -26,5 +26,17 @@ public class User implements  Serializable{
 			return name;
 		}
 	
+	public List<Album> getAlbumList() {
+		return myAlbums;
+	}
    
+	/**
+	 * THIS IS FOR DEBUGGING PURPOSES DELETE IN 
+	 * FINAL PRODUCT.
+	 */
+	public void printAlbums() {
+		for(Album alb: myAlbums) {
+			System.out.println(alb.getName());
+		}
+	}
 }
