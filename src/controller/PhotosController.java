@@ -321,8 +321,8 @@ public class PhotosController extends Controller{
 	 * What this does is it resets the photosList, imageViewList, tilePane, and 
 	 * the selections, as well as any other album-specific fields.
 	 */
-	private void closeAlbum() {
-		tagsListView.getItems().clear();
+	public void closeAlbum() {
+		tagsListView.setItems(null);
 		photoList = FXCollections.observableArrayList(); // set photoList to empty
 		imageViewList.clear();
 		currentAlbum = null;

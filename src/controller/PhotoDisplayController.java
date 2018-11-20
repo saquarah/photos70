@@ -7,8 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import model.Photo;
 
 public class PhotoDisplayController extends Controller{
+	
+	Photo currentPhoto;
 	
 	@FXML
 	Button prevPhotoB, nextPhotoB, backToAlbumB, logoutB, quitB;
@@ -22,6 +25,10 @@ public class PhotoDisplayController extends Controller{
 	@FXML
 	ImageView imageView;
 	
+	public void start(Photo firstViewed) {
+		currentPhoto = firstViewed;
+	}
+	
 	@FXML
 	public void prevPhoto(ActionEvent e) {
 		
@@ -34,15 +41,13 @@ public class PhotoDisplayController extends Controller{
 	
 	@FXML
 	public void backToAlbum(ActionEvent e) {
-		primaryStage.hide();
-		primaryStage.setScene(albumHomeScene);
-		albumController.start();
-		primaryStage.show();
+		toPhotos();
 		
 	}
 	
 	@FXML
 	public void logout(ActionEvent e) {
+		photosController.closeAlbum();
 		logout();
 		
 	}
