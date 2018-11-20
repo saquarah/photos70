@@ -53,5 +53,6 @@ public class Photo implements Serializable{
 	
 	public void addTag(String type, String value) {
 		Tag newTag = new Tag(type, value, this);
+		tags.add(newTag);
 	}
 }
