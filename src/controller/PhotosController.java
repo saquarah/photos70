@@ -145,6 +145,7 @@ public class PhotosController extends Controller{
 	
 	@FXML
 	public void logout(ActionEvent e) {
+		closeAlbum();
 		logout();
 	}
 	
