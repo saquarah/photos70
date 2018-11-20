@@ -25,6 +25,7 @@ public class Photo implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		caption = "";
 	}
 	private Image createThumbnail() throws MalformedURLException {
 		Image thumbnail = new Image(file.toURI().toURL().toString(), 100, 100, false, false);
@@ -37,5 +38,9 @@ public class Photo implements Serializable{
 	
 	public Image getThumbnail() {
 		return thumbnail;
+	}
+	
+	public void setCaption(String caption) {
+		this.caption = caption;
 	}
 }
