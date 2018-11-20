@@ -316,6 +316,7 @@ public class PhotosController extends Controller{
 	 * the selections, as well as any other album-specific fields.
 	 */
 	private void closeAlbum() {
+		tagsListView.getItems().clear();
 		photoList = FXCollections.observableArrayList(); // set photoList to empty
 		imageViewList.clear();
 		currentAlbum = null;
@@ -323,7 +324,7 @@ public class PhotosController extends Controller{
 		selectedPhoto = null;
 		selectedImageView = null;
 		// BOOKMARK 
-		//PLEASE DONT IGNORE ME
+		// PLEASE DONT IGNORE ME
 	}
 	
 	private void addToTilePane(Photo newPhoto) {
