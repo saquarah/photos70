@@ -56,6 +56,7 @@ public class PhotosController extends Controller{
 		Photo newPhoto = fileToPhoto(file);
 		photoList.add(newPhoto);
 		addToTilePane(newPhoto);
+		currentAlbum.getPhotos().add(newPhoto);
 	}
 	
 	@FXML
@@ -73,9 +74,11 @@ public class PhotosController extends Controller{
 		// in place yet.
 		tilePane.getChildren().remove(imageViewList.indexOf(selectedImageView)); // remove from tilePane
 		photoList.remove(selectedPhoto);
+		currentAlbum.getPhotos().remove(selectedPhoto);
 		imageViewList.remove(selectedImageView);
 		selectedPhoto = null;
 		selectedImageView = null;
+		
 	}
 	
 	@FXML
@@ -95,6 +98,7 @@ public class PhotosController extends Controller{
 	
 	@FXML
 	public void backToAlbum(ActionEvent e) {
+		closeAlbum();
 		toAlbum();
 	}
 	
@@ -133,9 +137,7 @@ public class PhotosController extends Controller{
 		logout();
 	}
 	
-	public void initialize() {
-		
-	}
+	public void initialize() {}
 	
 	/**
 	 * Populates photoList and imageViewList with photos from this album, and then making imageviews
@@ -169,7 +171,14 @@ public class PhotosController extends Controller{
 	 * the selections, as well as any other album-specific fields.
 	 */
 	private void closeAlbum() {
-		
+		photoList = FXCollections.observableArrayList(); // set photoList to empty
+		imageViewList.clear();
+		currentAlbum = null;
+		tilePane.getChildren().clear();
+		selectedPhoto = null;
+		selectedImageView = null;
+		// BOOKMARK 
+		//PLEASE DONT IGNORE ME
 	}
 	
 	private void addToTilePane(Photo newPhoto) {
