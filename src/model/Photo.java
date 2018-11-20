@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.Calendar;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 public class Photo implements Serializable{
 	
@@ -13,6 +15,7 @@ public class Photo implements Serializable{
 	private Image image;
 	private Image thumbnail;
 	private File file;
+	private ObservableList<Tag> tags = FXCollections.observableArrayList();
 	Calendar date = Calendar.getInstance();
 	
 	public Photo(Image image, Calendar date, File file) {
@@ -42,5 +45,13 @@ public class Photo implements Serializable{
 	
 	public void setCaption(String caption) {
 		this.caption = caption;
+	}
+	
+	public ObservableList<Tag> getTags() {
+		return tags;
+	}
+	
+	public void addTag(String type, String value) {
+		Tag newTag = new Tag(type, value, this);
 	}
 }
