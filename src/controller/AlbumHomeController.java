@@ -75,8 +75,9 @@ public class AlbumHomeController extends Controller{
 	@FXML
 	public void deleteAlbum(ActionEvent e) {
 		if(selectedAlbum != null) {
-			albumList.remove(selectedAlbum);
 			currentUser().getAlbumList().remove(selectedAlbum);
+			albumList.remove(selectedAlbum);
+			
 			albumListView.refresh();
 			albumListView.getSelectionModel().select(0);
 			selectedAlbum = albumListView.getSelectionModel().getSelectedItem();
