@@ -108,9 +108,21 @@ public class AlbumHomeController extends Controller{
             return;
 		}
 		if(adding) {
-			Album newAlbum = new Album(albumName);
-			albumList.add(newAlbum);
-			currentUser().getAlbumList().add(newAlbum);
+			if (!albumInList(albumName)) {
+				Album newAlbum = new Album(albumName);
+				albumList.add(newAlbum);
+				currentUser().getAlbumList().add(newAlbum);
+			}else {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setTitle("Error");
+	            alert.setContentText("This albmun name already exist. Choose a new name.");
+	            alert.showAndWait();
+	            albumNameTxt.clear();
+	            albumNameTxt.setPromptText("Enter name");
+	            
+	            return;
+				
+			}
 		} else {
 			selectedAlbum.setName(albumName);
 		}

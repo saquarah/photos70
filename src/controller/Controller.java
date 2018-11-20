@@ -222,6 +222,23 @@ public class Controller {
 	}
 	
 	/**
+	 * 
+	 * @param usr
+	 * @return boolean value as true if album found
+	 */
+	public static boolean albumInList(String albumName) {
+		boolean found=false;
+		//System.out.println("isUser called"+userList.size());
+		for (int i=0;i<albumList.size();i++) {
+			//System.out.println(userList.get(i).toString());
+			if(albumList.get(i).getName().equals(albumName)) {
+				found = true;
+			}
+		}	
+		return found;
+	}
+	
+	/**
 	 * Deletes selected user from listView. Cannot remove admin. 
 	 * @param i
 	 */
