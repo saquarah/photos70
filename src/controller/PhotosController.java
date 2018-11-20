@@ -99,7 +99,18 @@ public class PhotosController extends Controller{
 	
 	@FXML
 	public void addCaption(ActionEvent e) {
-		
+		if(selectedImageView == null || selectedPhoto == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No photo selected.");
+            alert.showAndWait();
+            return;
+		}
+		String caption = captionTxt.getText().trim();
+		selectedPhoto.setCaption(caption);
+		captionTxt.setVisible(false);
+		addCaptB.setVisible(false);
+		captionTxt.clear();
 	}
 	
 	@FXML
@@ -156,6 +167,8 @@ public class PhotosController extends Controller{
 	 * with those photos and adding them to imageViewList. Also links the album to this controller.
 	 */
 	public void start(Album thisAlbum) {
+		addCaptB.setVisible(false);
+		captionTxt.setVisible(false);
 		currentAlbum = thisAlbum;
 		selectedImageView = null;
 		selectedPhoto = null;
