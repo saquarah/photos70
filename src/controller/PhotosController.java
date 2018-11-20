@@ -29,7 +29,7 @@ public class PhotosController extends Controller{
 	ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
 	ImageView selectedImageView;
 	Photo selectedPhoto;
-	Album currentAlbum;
+	Album currentAlbum; // this is an album from the user.
 	
 	@FXML
 	TilePane tilePane;
@@ -95,7 +95,7 @@ public class PhotosController extends Controller{
 	
 	@FXML
 	public void backToAlbum(ActionEvent e) {
-		
+		toAlbum();
 	}
 	
 	@FXML
@@ -139,14 +139,15 @@ public class PhotosController extends Controller{
 	
 	/**
 	 * Populates photoList and imageViewList with photos from this album, and then making imageviews
-	 * with those photos and adding them to imageViewList.
+	 * with those photos and adding them to imageViewList. Also links the album to this controller.
 	 */
 	public void start(Album thisAlbum) {
+		currentAlbum = thisAlbum;
 		selectedImageView = null;
 		selectedPhoto = null;
 		for(int i = 0; i < thisAlbum.getPhotos().size(); i++) {
 			photoList.add(thisAlbum.getPhotos().get(i));
-			ImageView imvw = new ImageView(thisAlbum.getPhotos().get(i).getThumbnail());
+//			ImageView imvw = new ImageView(thisAlbum.getPhotos().get(i).getThumbnail());
 			addToTilePane(thisAlbum.getPhotos().get(i));
 		}
 	}
@@ -158,6 +159,16 @@ public class PhotosController extends Controller{
 		Image image = new Image(file.toURI().toString());
 		Photo photo = new Photo(image, date, file);
 		return photo;
+		
+	}
+	
+	/**
+	 * This method is used when we are getting out of the view from inside the album. 
+	 * So after a log out, a back to album button press, or a quit.
+	 * What this does is it resets the photosList, imageViewList, tilePane, and 
+	 * the selections, as well as any other album-specific fields.
+	 */
+	private void closeAlbum() {
 		
 	}
 	

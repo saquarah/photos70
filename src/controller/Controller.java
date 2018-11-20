@@ -124,11 +124,18 @@ public class Controller {
 		primaryStage.show();
 	}
 	
+//	public static void backToAlbum() {
+//		primaryStage.hide();
+//		primaryStage.setScene(albumHomeScene);
+//		
+//		primaryStage.show();
+//	}
+	
 	public static void logout() {
 		primaryStage.hide();
 		primaryStage.setScene(loginScene);
 		user = null;
-		
+		albumList = FXCollections.observableArrayList(); // reset albumList
 		primaryStage.show();
 	}
 	

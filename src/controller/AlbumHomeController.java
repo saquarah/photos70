@@ -47,6 +47,8 @@ public class AlbumHomeController extends Controller{
 		albumListView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> selectAlbum());
 		if(!currentUser().getUserName().equals("admin")) {
 			adminB.setVisible(false);
+		} else {
+			adminB.setVisible(true);
 		}
 		loadAlbumList();
 	}
@@ -74,6 +76,7 @@ public class AlbumHomeController extends Controller{
 	public void deleteAlbum(ActionEvent e) {
 		if(selectedAlbum != null) {
 			albumList.remove(selectedAlbum);
+			currentUser().getAlbumList().remove(selectedAlbum);
 			albumListView.refresh();
 			albumListView.getSelectionModel().select(0);
 			selectedAlbum = albumListView.getSelectionModel().getSelectedItem();
@@ -99,9 +102,11 @@ public class AlbumHomeController extends Controller{
 		if(adding) {
 			Album newAlbum = new Album(albumName);
 			albumList.add(newAlbum);
+			currentUser().getAlbumList().add(newAlbum);
 		} else {
 			selectedAlbum.setName(albumName);
 		}
+		
 		albumListView.refresh();
 		setCreationVisibility(false);
 		albumNameTxt.clear();
@@ -133,6 +138,7 @@ public class AlbumHomeController extends Controller{
 	
 	@FXML
 	public void logout(ActionEvent e) {
+		closeAlbums();
 		logout();
 	}
 	
@@ -143,8 +149,19 @@ public class AlbumHomeController extends Controller{
 		
 	}
 	
+	private void closeAlbums() {
+		selectedAlbum = null;
+		
+	}
+	
 	private void loadAlbumList() {
-		albumListView.setItems(albumList);
+		if(albumList.isEmpty()) { // if the album is empty then the user has just logged in
+			for(Album album: currentUser().getAlbumList()) { // fill the observable album list with the user's albums
+				albumList.add(album);
+				// even if the user hasn't just logged in, this loop is harmless.
+			}
+		}
+		albumListView.setItems(albumList); // set the list view
 	}
 	
 	private void selectAlbum() {
