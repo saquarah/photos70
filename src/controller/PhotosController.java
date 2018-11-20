@@ -53,6 +53,9 @@ public class PhotosController extends Controller{
 		FileChooser fc = new FileChooser();
 		fc.setTitle("Select image");
 		File file = fc.showOpenDialog(primaryStage);
+		if(file == null) {
+			return;
+		}
 		Photo newPhoto = fileToPhoto(file);
 		photoList.add(newPhoto);
 		addToTilePane(newPhoto);
@@ -83,7 +86,15 @@ public class PhotosController extends Controller{
 	
 	@FXML
 	public void caption(ActionEvent e) {
-		
+		if(selectedImageView == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No photo selected.");
+            alert.showAndWait();
+            return;
+		}
+		addCaptB.setVisible(true);
+		captionTxt.setVisible(true); // add cancel button to this
 	}
 	
 	@FXML
