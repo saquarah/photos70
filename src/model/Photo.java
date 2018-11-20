@@ -55,6 +55,24 @@ public class Photo implements Serializable{
 		return tags;
 	}
 	
+	public Album getRootAlbum() {
+		return rootAlbum;
+	}
+	public File getFile() {
+		return file;
+	}
+	public Calendar getDate() {
+		return date;
+	}
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	public void setThumbnail(Image thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+	public void setTags(ObservableList<Tag> tags) {
+		this.tags = tags;
+	}
 	public void addTag(String type, String value) {
 		Tag newTag = new Tag(type, value, this);
 		tags.add(newTag);

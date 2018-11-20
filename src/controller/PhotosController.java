@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,8 +32,13 @@ public class PhotosController extends Controller{
 	Photo selectedPhoto;
 	Album currentAlbum; // this is an album from the user.
 	Tag selectedTag;
+	Album selectedAlbum;
+	
 	@FXML
 	TilePane tilePane;
+	
+	@FXML
+	ScrollPane scrollpane;
 	
 	@FXML
 	Button addPhotoB, deletePhotoB,  backToAlbumB, quitB, logoutB, addTagB, deleteTagB, saveTagB, copyToOtherAlbumB;
@@ -75,13 +81,7 @@ public class PhotosController extends Controller{
 		// and the tilePane itself. Additionally we have to delete it
 		// from this album's photo list as well, but we don't have that 
 		// in place yet.
-		tilePane.getChildren().remove(imageViewList.indexOf(selectedImageView)); // remove from tilePane
-		photoList.remove(selectedPhoto);
-		currentAlbum.getPhotos().remove(selectedPhoto);
-		imageViewList.remove(selectedImageView);
-		selectedPhoto = null;
-		selectedImageView = null;
-		tagsListView.setItems(null);
+		deleteSelectedPhoto();
 		
 	}
 	
@@ -185,12 +185,63 @@ public class PhotosController extends Controller{
 	
 	@FXML
 	public void moveToOtherAlbum(ActionEvent e) {
+		if(selectedAlbum == currentAlbum) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("This photo is already in this album.");
+            alert.showAndWait();
+            return;
+		}
+		if(selectedPhoto == null || selectedImageView == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No photo selected.");
+            alert.showAndWait();
+            return;
+		}
+		if(selectedAlbum == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No album selected.");
+            alert.showAndWait();
+            return;
+		}
+		Photo movingPhoto = selectedPhoto;
+		deleteSelectedPhoto();
+		
+		selectedAlbum.getPhotos().add(movingPhoto);
 		
 	}
 	
+	
 	@FXML
 	public void copyToOtherAlbum(ActionEvent e) {
+		if(selectedPhoto == null || selectedImageView == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No photo selected.");
+            alert.showAndWait();
+            return;
+		}
+		if(selectedAlbum == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No album selected.");
+            alert.showAndWait();
+            return;
+		}
+		// copy the selected photo's image, date, file, caption, and tags
+		Photo copiedPhoto = new Photo(selectedPhoto.getImage(), selectedPhoto.getDate(), selectedPhoto.getFile());
+		copiedPhoto.setCaption(selectedPhoto.getCaption());
+		for(Tag tag: selectedPhoto.getTags()) {
+			copiedPhoto.getTags().add(tag);
+		}
+		selectedAlbum.getPhotos().add(copiedPhoto);
 		
+		if(selectedAlbum == currentAlbum) {
+			photoList.add(copiedPhoto);
+			addToTilePane(copiedPhoto);
+		}
 	}
 	
 	@FXML
@@ -204,7 +255,10 @@ public class PhotosController extends Controller{
 		logout();
 	}
 	
-	public void initialize() {}
+	public void initialize() {
+		scrollpane.setFitToWidth(true);
+		scrollpane.setContent(tilePane);
+	}
 	
 	/**
 	 * Populates photoList and imageViewList with photos from this album, and then making imageviews
@@ -226,6 +280,21 @@ public class PhotosController extends Controller{
 //			ImageView imvw = new ImageView(thisAlbum.getPhotos().get(i).getThumbnail());
 			addToTilePane(thisAlbum.getPhotos().get(i));
 		}
+		albumsListView.setItems(albumList);
+		albumsListView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> selectAlbum());
+	}
+	
+	private void selectAlbum() {
+		selectedAlbum = albumsListView.getSelectionModel().getSelectedItem();
+	}
+	private void deleteSelectedPhoto() {
+		tilePane.getChildren().remove(imageViewList.indexOf(selectedImageView)); // remove from tilePane
+		photoList.remove(selectedPhoto);
+		currentAlbum.getPhotos().remove(selectedPhoto);
+		imageViewList.remove(selectedImageView);
+		selectedPhoto = null;
+		selectedImageView = null;
+		tagsListView.setItems(null);
 	}
 	
 	private void selectTag() {
