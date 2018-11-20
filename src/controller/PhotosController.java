@@ -121,7 +121,8 @@ public class PhotosController extends Controller{
 	
 	@FXML
 	public void openPhoto(ActionEvent e) {
-		
+		photoDisplayController.start(selectedPhoto, currentAlbum);
+		openPhoto();
 	}
 	
 	@FXML

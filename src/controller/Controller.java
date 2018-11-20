@@ -40,7 +40,7 @@ public class Controller {
 	static ObservableList<User> userList = FXCollections.observableArrayList();
 	static ObservableList<Album> albumList = FXCollections.observableArrayList();
 	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
+		Controller.primaryStage = primaryStage;
 	}
 
 	
@@ -189,7 +189,7 @@ public class Controller {
 		
 	}
 	
-	public void start(Album album) {
+	public void start(Album album) { // i think this and the method above can be deleted now
 		
 	}
 	/**
@@ -202,7 +202,12 @@ public class Controller {
 		primaryStage.show();
 	}
 	
-	
+	public static void openPhoto() {
+		primaryStage.hide();
+		primaryStage.setScene(photoDisplayScene);
+		
+		primaryStage.show();
+	}
 	
 	/**
 	 * 
