@@ -1,16 +1,23 @@
 package controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 import javafx.stage.FileChooser;
 import model.Album;
@@ -19,7 +26,9 @@ import model.Tag;
 
 public class PhotosController extends Controller{
 	ObservableList<Photo> photoList = FXCollections.observableArrayList();
-	
+	ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
+	ImageView selectedImageView;
+	Photo selectedPhoto;
 	Album currentAlbum;
 	
 	@FXML
@@ -46,11 +55,27 @@ public class PhotosController extends Controller{
 		File file = fc.showOpenDialog(primaryStage);
 		Photo newPhoto = fileToPhoto(file);
 		photoList.add(newPhoto);
+		addToTilePane(newPhoto);
 	}
 	
 	@FXML
 	public void deletePhoto(ActionEvent e) {
-		
+		if(selectedImageView == null || selectedPhoto == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No photo selected.");
+            alert.showAndWait();
+            return;
+		}
+		// we have to delete it from the photoList, the imageViewList
+		// and the tilePane itself. Additionally we have to delete it
+		// from this album's photo list as well, but we don't have that 
+		// in place yet.
+		tilePane.getChildren().remove(imageViewList.indexOf(selectedImageView)); // remove from tilePane
+		photoList.remove(selectedPhoto);
+		imageViewList.remove(selectedImageView);
+		selectedPhoto = null;
+		selectedImageView = null;
 	}
 	
 	@FXML
@@ -100,21 +125,29 @@ public class PhotosController extends Controller{
 	
 	@FXML
 	public void quit(ActionEvent e) {
-		
+		Platform.exit();
 	}
 	
 	@FXML
 	public void logout(ActionEvent e) {
-		
+		logout();
 	}
 	
 	public void initialize() {
 		
 	}
 	
+	/**
+	 * Populates photoList and imageViewList with photos from this album, and then making imageviews
+	 * with those photos and adding them to imageViewList.
+	 */
 	public void start(Album thisAlbum) {
+		selectedImageView = null;
+		selectedPhoto = null;
 		for(int i = 0; i < thisAlbum.getPhotos().size(); i++) {
 			photoList.add(thisAlbum.getPhotos().get(i));
+			ImageView imvw = new ImageView(thisAlbum.getPhotos().get(i).getThumbnail());
+			addToTilePane(thisAlbum.getPhotos().get(i));
 		}
 	}
 	
@@ -126,5 +159,37 @@ public class PhotosController extends Controller{
 		Photo photo = new Photo(image, date, file);
 		return photo;
 		
+	}
+	
+	private void addToTilePane(Photo newPhoto) {
+		ImageView newImageView = new ImageView();
+		newImageView.setImage(newPhoto.getThumbnail());
+		initializeImageView(newImageView);
+		tilePane.getChildren().add(newImageView);
+	}
+	
+	private void initializeImageView(ImageView imageView) {
+		imageView.setFitHeight(100);
+		imageView.setFitWidth(100);
+		imageViewList.add(imageView);
+		imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				if(e.getButton().equals(MouseButton.PRIMARY)) {
+					if(selectedImageView != null)
+						selectedImageView.setOpacity(1.0); // unselect the previous selectedImview
+					selectedImageView = imageView; // select new imageView that was clicked on.
+					// the photo has already been added to photolist at this point
+					selectedPhoto = photoList.get(imageViewList.indexOf(selectedImageView)); // make the selected photo by
+					// 1. get the index of the selected imageView in the imageViewList
+					// 2. get the photo at that index in the photoList.
+					// 3. we can be sure that those indices are mapping each photo to its imageview because 
+					//    a. every time a photo is added to the list, it is also added to the imageViewList.
+					//    b. every time a photo is removed from the photoList, it is also removed from the imageViewList
+					imageView.setOpacity(.5);
+					//tilepane can get stuff by index
+				}
+			}
+		});
 	}
 }
