@@ -164,19 +164,19 @@ public class AlbumHomeController extends Controller{
 	
 	@FXML
 	public void quit(ActionEvent e) {
-		try {
-			FileOutputStream fos = new FileOutputStream("UserList.dat");
-			ObjectOutputStream os = new ObjectOutputStream (fos);
-			os.writeObject(new ArrayList<User> (userList));
-			os.close();
-			fos.close();
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		try {
+//			FileOutputStream fos = new FileOutputStream("UserList.dat");
+//			ObjectOutputStream os = new ObjectOutputStream (fos);
+//			os.writeObject(new ArrayList<User> (userList));
+//			os.close();
+//			fos.close();
+//		} catch (FileNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		Platform.exit();
 		
 	}
