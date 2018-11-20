@@ -20,7 +20,9 @@ public class Tag implements Serializable{
 	public Photo getPhoto() {
 		return photo;
 	}
-	
+	public String toString() {
+		return type + "=" + value;
+	}
 	
 	
 }

@@ -30,7 +30,7 @@ public class PhotosController extends Controller{
 	ImageView selectedImageView;
 	Photo selectedPhoto;
 	Album currentAlbum; // this is an album from the user.
-	
+	Tag selectedTag;
 	@FXML
 	TilePane tilePane;
 	
@@ -81,6 +81,7 @@ public class PhotosController extends Controller{
 		imageViewList.remove(selectedImageView);
 		selectedPhoto = null;
 		selectedImageView = null;
+		tagsListView.setItems(null);
 		
 	}
 	
@@ -94,6 +95,7 @@ public class PhotosController extends Controller{
             return;
 		}
 		addCaptB.setVisible(true);
+		captionTxt.setText(selectedPhoto.getCaption());
 		captionTxt.setVisible(true); // add cancel button to this
 	}
 	
@@ -126,17 +128,59 @@ public class PhotosController extends Controller{
 	
 	@FXML
 	public void addTag(ActionEvent e) {
-		
+		if(selectedPhoto == null || selectedImageView == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No photo selected.");
+            alert.showAndWait();
+            return;
+		}
+		saveTagB.setVisible(true);
+		tagNameTxt.setVisible(true);
+		tagValueTxt.setVisible(true);
 	}
 	
 	@FXML
 	public void deleteTag(ActionEvent e) {
-		
+		if(selectedPhoto == null || selectedImageView == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No photo selected.");
+            alert.showAndWait();
+            return;
+		}
+		if(selectedTag == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No tag selected.");
+            alert.showAndWait();
+            return;
+		}
+		tagsListView.getItems().remove(selectedTag);
+		tagsListView.refresh();
 	}
 	
 	@FXML
 	public void saveTag(ActionEvent e) {
+		String tagType = tagNameTxt.getText().trim();
+		String tagValue = tagValueTxt.getText().trim();
 		
+		if(tagType.isEmpty() || tagValue.isEmpty()) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("One or more of the tag text fields are blank.");
+            alert.showAndWait();
+            return;
+		}
+		
+		selectedPhoto.addTag(tagType, tagValue);
+		tagsListView.setItems(selectedPhoto.getTags());
+		
+		tagNameTxt.clear();
+		tagValueTxt.clear();
+		tagNameTxt.setVisible(false);
+		tagValueTxt.setVisible(false);
+		saveTagB.setVisible(false);
 	}
 	
 	@FXML
@@ -167,6 +211,11 @@ public class PhotosController extends Controller{
 	 * with those photos and adding them to imageViewList. Also links the album to this controller.
 	 */
 	public void start(Album thisAlbum) {
+		tagsListView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> selectTag());
+		tagNameTxt.setVisible(false);
+		tagValueTxt.setVisible(false);
+		saveTagB.setVisible(false);
+		
 		addCaptB.setVisible(false);
 		captionTxt.setVisible(false);
 		currentAlbum = thisAlbum;
@@ -179,7 +228,9 @@ public class PhotosController extends Controller{
 		}
 	}
 	
-	
+	private void selectTag() {
+		selectedTag = tagsListView.getSelectionModel().getSelectedItem();
+	}
 	private Photo fileToPhoto(File file) {
 		Calendar date = Calendar.getInstance();
 		date.setTimeInMillis(file.lastModified());
@@ -233,6 +284,10 @@ public class PhotosController extends Controller{
 					//    b. every time a photo is removed from the photoList, it is also removed from the imageViewList
 					imageView.setOpacity(.5);
 					//tilepane can get stuff by index
+					// every time an image is clicked,
+					// the tagListView must show all of that images tags.
+					tagsListView.setItems(selectedPhoto.getTags());
+					selectedTag = null;
 				}
 			}
 		});
