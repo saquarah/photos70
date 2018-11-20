@@ -27,11 +27,11 @@ public class Controller {
 	static Scene photosScene;
 	static Scene photoDisplayScene;
 	
-	static Controller loginController;
-	static Controller adminController;
-	static Controller albumController;
-	static Controller photosController;
-	static Controller photoDisplayController;
+	static LoginController loginController;
+	static AdminController adminController;
+	static AlbumHomeController albumController;
+	static PhotosController photosController;
+	static PhotoDisplayController photoDisplayController;
 	
 	static Stage primaryStage;
 	
