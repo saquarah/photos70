@@ -46,23 +46,23 @@ public class Controller {
 	
 	public static void initializeFXML(Stage primaryStage) throws IOException {
 		Controller.primaryStage = primaryStage;
-		
-		try {
-			FileInputStream fis = new FileInputStream("UserList.dat");
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			List<User> list = (List<User>)ois.readObject();
-			userList.addAll(list);
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-	//		e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		
+//		try {
+//			FileInputStream fis = new FileInputStream("UserList.dat");
+//			ObjectInputStream ois = new ObjectInputStream(fis);
+//			List<User> list = (List<User>)ois.readObject();
+//			userList.addAll(list);
+//			
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//	//		e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		initializeUserList();
 		
