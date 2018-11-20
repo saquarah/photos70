@@ -1,6 +1,10 @@
 package controller;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,6 +46,24 @@ public class Controller {
 	
 	public static void initializeFXML(Stage primaryStage) throws IOException {
 		Controller.primaryStage = primaryStage;
+		
+		try {
+			FileInputStream fis = new FileInputStream("UserList.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			List<User> list = (List<User>)ois.readObject();
+			userList.addAll(list);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		initializeUserList();
 		
 		FXMLLoader logLoader = new FXMLLoader();
@@ -97,10 +119,15 @@ public class Controller {
 	}
 	
 	public static void initializeUserList() {
+		
+		if(!userInList("admin")) {
 		userList.add(new User("admin"));
+		}
 	}
 	
 	public static void login() {
+		
+		
 		primaryStage.setScene(loginScene);
 		primaryStage.show();
 	}
@@ -182,7 +209,7 @@ public class Controller {
 	 * @param usr
 	 * @return boolean value as true if user found
 	 */
-	public boolean userInList(String usr) {
+	public static boolean userInList(String usr) {
 		boolean found=false;
 		//System.out.println("isUser called"+userList.size());
 		for (int i=0;i<userList.size();i++) {
