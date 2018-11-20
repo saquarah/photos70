@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -33,6 +34,9 @@ public class PhotosController extends Controller{
 	Album currentAlbum; // this is an album from the user.
 	Tag selectedTag;
 	Album selectedAlbum;
+	
+	@FXML
+	Label albumNameLbl;
 	
 	@FXML
 	TilePane tilePane;
@@ -265,6 +269,8 @@ public class PhotosController extends Controller{
 	 * with those photos and adding them to imageViewList. Also links the album to this controller.
 	 */
 	public void start(Album thisAlbum) {
+		albumNameLbl.setText(thisAlbum.getName());
+		
 		tagsListView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> selectTag());
 		tagNameTxt.setVisible(false);
 		tagValueTxt.setVisible(false);

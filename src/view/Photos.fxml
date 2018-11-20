@@ -23,7 +23,7 @@
       </ScrollPane>
       <Button fx:id="addPhotoB" layoutX="25.0" layoutY="500.0" mnemonicParsing="false" onAction="#addPhoto" text="Add photo" />
       <Button fx:id="deletePhotoB" layoutX="134.0" layoutY="500.0" mnemonicParsing="false" onAction="#deletePhoto" text="Delete Photo" />
-      <Label layoutX="346.0" layoutY="58.0" text="Album Name" />
+      <Label fx:id="albumNameLbl" layoutX="346.0" layoutY="58.0" text="Album Name" />
       <Button fx:id="captionB" layoutX="253.0" layoutY="500.0" mnemonicParsing="false" onAction="#caption" text="Caption" />
       <TextField fx:id="captionTxt" layoutX="208.0" layoutY="530.0" promptText="Enter caption" />
       <Button fx:id="backToAlbumB" layoutX="13.0" layoutY="28.0" mnemonicParsing="false" onAction="#backToAlbum" text="Back to Albums" />
