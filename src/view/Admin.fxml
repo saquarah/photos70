@@ -18,5 +18,6 @@
       <Label layoutX="164.0" layoutY="272.0" text="User List" />
       <Label layoutX="149.0" layoutY="297.0" prefHeight="17.0" prefWidth="76.0" text="Admin tools" />
       <Button fx:id="backB" layoutX="153.0" layoutY="493.0" mnemonicParsing="false" onAction="#goBackToAlbum" text="Back " />
+      <Button layoutX="307.0" layoutY="493.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
    </children>
 </AnchorPane>

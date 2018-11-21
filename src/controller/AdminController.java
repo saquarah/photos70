@@ -1,5 +1,12 @@
 package controller;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -83,6 +90,24 @@ public class AdminController extends Controller{
 	}
 	
 	@FXML
+	public void quit(ActionEvent e) {
+		try {
+			FileOutputStream fos = new FileOutputStream("UserList.dat");
+			ObjectOutputStream os = new ObjectOutputStream (fos);
+			os.writeObject(new ArrayList<User> (userList));
+			os.close();
+			fos.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Platform.exit();
+	}
+	
+	@FXML
 	/**
 	 * Allows admin to go to login screen on clicking back button
 	 * @param e
@@ -116,4 +141,5 @@ public class AdminController extends Controller{
 	private void selectUser() {
 		selectedUser = userListView.getSelectionModel().getSelectedItem();
 	}
+	
 }

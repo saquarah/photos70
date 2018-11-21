@@ -1,5 +1,12 @@
 package controller;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -56,6 +63,25 @@ public class LoginController extends Controller{
 				}
 			}
 		}
+	
+	@FXML
+	public void quit(ActionEvent e) {
+		try {
+			FileOutputStream fos = new FileOutputStream("UserList.dat");
+			ObjectOutputStream os = new ObjectOutputStream (fos);
+			os.writeObject(new ArrayList<User> (userList));
+			os.close();
+			fos.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Platform.exit();
+	}
+	
 	private User getUserFromName(String name) {
 		for(User u : userList) {
 			if(u.getUserName().equals(name)) {
