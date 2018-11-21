@@ -33,20 +33,39 @@ public class PhotoDisplayController extends Controller{
 	ImageView imageView;
 	
 	public void start(Photo firstViewed, Album currentAlbum) {
+		tagTxtArea.setWrapText(true);
+		captionTxtArea.setWrapText(true);
+		
 		currentPhoto = firstViewed;
 		this.currentAlbum = currentAlbum;
-		prepareImageView();
-		System.out.println(imageView.getLayoutX());
+		
+		albumLabel.setText("Album: " + currentAlbum.getName());
+		
+		updateWidgets();
+		checkForPrev();
+		checkForNext();
 	}
 	
 	@FXML
 	public void prevPhoto(ActionEvent e) {
 		
+		int currentIndx = currentAlbum.getPhotos().indexOf(currentPhoto);
+		currentPhoto = currentAlbum.getPhotos().get(currentIndx - 1);
+		
+		updateWidgets();
+		checkForPrev();
+		checkForNext();
 	}
 	
 	@FXML
 	public void nextPhoto(ActionEvent e) {
 		
+		int currentIndx = currentAlbum.getPhotos().indexOf(currentPhoto);
+		currentPhoto = currentAlbum.getPhotos().get(currentIndx + 1);
+		
+		updateWidgets();
+		checkForNext();
+		checkForPrev();
 	}
 	
 	@FXML
@@ -86,5 +105,47 @@ public class PhotoDisplayController extends Controller{
 		}
 		
 		imageView.setImage(currentPhoto.getImage());
+	}
+	
+	private void checkForPrev() {
+		if(currentAlbum.getPhotos().indexOf(currentPhoto) == 0) {
+			prevPhotoB.setDisable(true);
+		} else {
+			prevPhotoB.setDisable(false);
+		}
+	}
+	private void checkForNext() {
+
+		if(currentAlbum.getPhotos().indexOf(currentPhoto) == currentAlbum.getPhotos().size() - 1) {
+			nextPhotoB.setDisable(true);
+		} else {
+			nextPhotoB.setDisable(false);
+		}
+	}
+	
+	private void updateWidgets() {
+		prepareImageView();
+		
+		dateLabel.setText("Date: " + currentPhoto.getDate().getTime().toString());
+		String tagsText = "";
+		
+		if(!currentPhoto.getTags().isEmpty()) {
+			StringBuilder sb = new StringBuilder(tagsText);
+			for(int i = 0; i < currentPhoto.getTags().size(); i++) {
+				String tag = currentPhoto.getTags().get(i).getTag() + "=" + currentPhoto.getTags().get(i).getValue();
+				sb.append(tag).append("\n");
+			}
+			tagsText = sb.toString();
+		} else {
+			tagsText = "No tags";
+		}
+		
+		tagTxtArea.setText(tagsText);
+		
+		if(!currentPhoto.getCaption().isEmpty()) {
+			captionTxtArea.setText(currentPhoto.getCaption());
+		} else {
+			captionTxtArea.setText("No caption");
+		}
 	}
 }

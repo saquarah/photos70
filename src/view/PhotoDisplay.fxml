@@ -14,7 +14,7 @@
       <ImageView fx:id="imageView" fitHeight="393.0" fitWidth="878.0" layoutX="75.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="53.0" />
       <TextArea fx:id="tagTxtArea" editable="false" layoutX="657.0" layoutY="490.0" prefHeight="65.0" prefWidth="200.0" />
       <Label layoutX="743.0" layoutY="470.0" text="Tags" />
-      <Label fx:id="dateLabel" layoutX="481.0" layoutY="500.0" prefHeight="17.0" prefWidth="122.0" text="Date: " />
+      <Label fx:id="dateLabel" layoutX="294.0" layoutY="531.0" prefHeight="17.0" prefWidth="356.0" text="Date: " />
       <Button fx:id="prevPhotoB" layoutX="14.0" layoutY="500.0" mnemonicParsing="false" onAction="#prevPhoto" prefHeight="39.0" prefWidth="43.0" text="&lt;-">
          <font>
             <Font size="16.0" />
@@ -25,7 +25,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Label fx:id="albumLabel" layoutX="366.0" layoutY="500.0" text="Album: " />
+      <Label fx:id="albumLabel" layoutX="294.0" layoutY="500.0" text="Album: " />
       <Button fx:id="logoutB" layoutX="943.0" layoutY="28.0" mnemonicParsing="false" onAction="#logout" text="Log out" />
       <Button fx:id="quitB" layoutX="897.0" layoutY="28.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
       <Button fx:id="backToAlbumB" layoutX="31.0" layoutY="28.0" mnemonicParsing="false" onAction="#backToAlbum" text="Back to album" />
