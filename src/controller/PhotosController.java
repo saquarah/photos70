@@ -1,6 +1,10 @@
 package controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -25,6 +29,7 @@ import javafx.stage.FileChooser;
 import model.Album;
 import model.Photo;
 import model.Tag;
+import model.User;
 
 public class PhotosController extends Controller{
 	ObservableList<Photo> photoList = FXCollections.observableArrayList();
@@ -254,6 +259,19 @@ public class PhotosController extends Controller{
 	
 	@FXML
 	public void quit(ActionEvent e) {
+		try {
+			FileOutputStream fos = new FileOutputStream("UserList.dat");
+			ObjectOutputStream os = new ObjectOutputStream (fos);
+			os.writeObject(new ArrayList<User> (userList));
+			os.close();
+			fos.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Platform.exit();
 	}
 	

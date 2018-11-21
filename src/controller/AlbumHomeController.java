@@ -1,5 +1,11 @@
 package controller;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.Album;
 import model.Photo;
+import model.User;
 
 public class AlbumHomeController extends Controller{
 	ObservableList<Photo> photosList = FXCollections.observableArrayList();
@@ -212,19 +219,19 @@ public class AlbumHomeController extends Controller{
 	
 	@FXML
 	public void quit(ActionEvent e) {
-//		try {
-//			FileOutputStream fos = new FileOutputStream("UserList.dat");
-//			ObjectOutputStream os = new ObjectOutputStream (fos);
-//			os.writeObject(new ArrayList<User> (userList));
-//			os.close();
-//			fos.close();
-//		} catch (FileNotFoundException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
+		try {
+			FileOutputStream fos = new FileOutputStream("UserList.dat");
+			ObjectOutputStream os = new ObjectOutputStream (fos);
+			os.writeObject(new ArrayList<User> (userList));
+			os.close();
+			fos.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Platform.exit();
 		
 	}

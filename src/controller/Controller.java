@@ -1,9 +1,11 @@
 package controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.Calendar;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -11,9 +13,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Album;
+import model.Photo;
 import model.User;
 
 public class Controller {
@@ -61,22 +65,31 @@ public class Controller {
 		searchResultsController.setPrimaryStage(secondaryStage);
 		secondaryStage.setScene(searchResultsScene);
 		
-//		try {
-//			FileInputStream fis = new FileInputStream("UserList.dat");
-//			ObjectInputStream ois = new ObjectInputStream(fis);
-//			List<User> list = (List<User>)ois.readObject();
-//			userList.addAll(list);
-//			
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//	//		e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			
+			File f = new File("./UserList.dat");
+			if(f.exists()) {
+				
+			
+			FileInputStream fis = new FileInputStream("UserList.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			List<User> list = (List<User>)ois.readObject();
+			userList.addAll(list);
+			}
+			else {
+				System.out.println("no such file");
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		initializeUserList();
 		
@@ -136,6 +149,34 @@ public class Controller {
 		if(!userInList("admin")) {
 		userList.add(new User("admin"));
 		}
+		if(!userInList("stock")) {
+			User u = new User("stock");
+			userList.add(u);
+			Album a = new Album("stock");
+			u.getAlbumList().add(a);
+			File f = new File("./stockPhotos/images.jpeg");
+			a.addToAlbum(fileToPhoto(f));
+			File f1 = new File("./stockPhotos/images-2.jpeg");
+			a.addToAlbum(fileToPhoto(f1));
+			File f2 = new File("./stockPhotos/images-3.jpeg");
+			a.addToAlbum(fileToPhoto(f2));
+			File f3 = new File("./stockPhotos/images-4.jpeg");
+			a.addToAlbum(fileToPhoto(f3));
+			File f4 = new File("./stockPhotos/images-5.jpeg");
+			a.addToAlbum(fileToPhoto(f4));
+			
+			
+		}
+			
+	}
+	
+	private static Photo fileToPhoto(File file) {
+		Calendar date = Calendar.getInstance();
+		date.setTimeInMillis(file.lastModified());
+		Image image = new Image(file.toURI().toString());
+		Photo photo = new Photo(image, date, file);
+		return photo;
+		
 	}
 	
 	public static void login() {
