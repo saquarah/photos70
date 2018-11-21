@@ -26,8 +26,14 @@ public class Photo implements Serializable{
 	private transient Image thumbnail;
 	private File file;
 	private transient ObservableList<Tag> tags = FXCollections.observableArrayList();
-	Calendar date = Calendar.getInstance();
+	private Calendar date = Calendar.getInstance();
 	
+	/**
+	 * Initializes the photo
+	 * @param image the image of the photo
+	 * @param date the date the photo was created
+	 * @param file the file the photo is from
+	 */
 	public Photo(Image image, Calendar date, File file) {
 		this.image = image;
 		this.date = date;
@@ -46,41 +52,81 @@ public class Photo implements Serializable{
 		return thumbnail;
 	}
 	
+	/**
+	 * 
+	 * @return the image of the photo
+	 */
 	public Image getImage() {
 		return image;
 	}
-	
+	/**
+	 * 
+	 * @return the photo's thumbnail
+	 */
 	public Image getThumbnail() {
 		return thumbnail;
 	}
-	
+	/**
+	 * 
+	 * @return the photo's caption
+	 */
 	public String getCaption() {
 		return caption;
 	}
-	
+	/**
+	 * Change the caption of the photo
+	 * @param caption the new caption
+	 */
 	public void setCaption(String caption) {
 		this.caption = caption;
 	}
-	
+	/**
+	 * 
+	 * @return the list of all tags the photo has
+	 */
 	public ObservableList<Tag> getTags() {
 		return tags;
 	}
-
+	/**
+	 * 
+	 * @return the file that the photo is from
+	 */
 	public File getFile() {
 		return file;
 	}
+	/**
+	 * 
+	 * @return the date the photo was taken
+	 */
 	public Calendar getDate() {
 		return date;
 	}
+	/**
+	 * Sets the image for the photo
+	 * @param image
+	 */
 	public void setImage(Image image) {
 		this.image = image;
 	}
+	/**
+	 * Sets the thumbnail for the photo
+	 * @param thumbnail
+	 */
 	public void setThumbnail(Image thumbnail) {
 		this.thumbnail = thumbnail;
 	}
+	/**
+	 * sets the list of tags for the photo
+	 * @param tags
+	 */
 	public void setTags(ObservableList<Tag> tags) {
 		this.tags = tags;
 	}
+	/**
+	 * Adds a new tag to the photo
+	 * @param type the name of the tag
+	 * @param value the tag's value
+	 */
 	public void addTag(String type, String value) {
 		Tag newTag = new Tag(type, value);
 		tags.add(newTag);

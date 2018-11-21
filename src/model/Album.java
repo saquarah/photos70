@@ -8,11 +8,14 @@ import java.util.List;
 
 public class Album implements Serializable{
 	private String name;
-	List<Photo> photos;
+	private List<Photo> photos;
 	private Calendar earliestDate = Calendar.getInstance();
 	private Calendar latestDate = Calendar.getInstance();
 	
-	
+	/**
+	 * Initializes album
+	 * @param name the album's name
+	 */
 	public Album(String name) {
 		this.name = name;
 		this.photos = new ArrayList<Photo>();
@@ -20,10 +23,18 @@ public class Album implements Serializable{
 		latestDate = null;
 	}
 	
+	/**
+	 * 
+	 * @return the album's name
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Shows string representation of album, showing the name, number of photos, and
+	 * the earliest and latest dates
+	 */
 	public String toString() {
 		String photoPlur = "photos";
 		if(photos.size() == 1) {
@@ -36,23 +47,36 @@ public class Album implements Serializable{
 		String strLateDate = latestDate.getTime().toString();
 		return name + "|" + photos.size() + " " + photoPlur + " | From " + strEarlyDate + " to " + strLateDate;
 	}
-	
+	/**
+	 * Changes album name
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	/**
+	 * Adds the photo to the album, also updating earliest and latest dates
+	 * @param photo
+	 */
 	public void addToAlbum(Photo photo) {
 		photos.add(photo);
 		updateEarliestDate();
 		updateLatestDate();
 	}
-	
+	/**
+	 * Removes the photo from the album, also updating earliest and latest dates
+	 * @param photo
+	 */
 	public void removeFromAlbum(Photo photo) {
 		photos.remove(photo);
 		updateEarliestDate();
 		updateLatestDate();
 	}
-	
+	/**
+	 * 
+	 * @return the list of photos that the album contains
+	 */
 	public List<Photo> getPhotos() {
 		return photos;
 	}

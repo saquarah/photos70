@@ -23,19 +23,32 @@ public class SearchResultsController extends Controller {
 	private final static String CONJUNCTIVE_SEARCH = "Conjuntive tag-value search";
 	private final static String DISJUNCTIVE_SEARCH = "Disjunctive tag-value search";
 	
+	/**
+	 * The observable list of photos for the search results
+	 */
 	ObservableList<Photo> searchResults = FXCollections.observableArrayList();
 	
+	/**
+	 * The search option that was selected
+	 */
 	String selectedOption;
 	
-	@FXML ScrollPane scrollpane;
+	private @FXML ScrollPane scrollpane;
 	
-	@FXML TilePane tilePane;
+	private @FXML TilePane tilePane;
 	
-	public SearchResultsController() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public void start(String selectedOption, String startDate, String endDate, String tag1Type, String tag1Value, String tag2Type, String tag2Value) {
+	/**
+	 * Starts the serach, initializing the screen and initializing all possible String values
+	 * from the search textfields. Also carries out the search
+	 * @param selectedOption
+	 * @param startDate
+	 * @param endDate
+	 * @param tag1Type
+	 * @param tag1Value
+	 * @param tag2Type
+	 * @param tag2Value
+	 */
+	void start(String selectedOption, String startDate, String endDate, String tag1Type, String tag1Value, String tag2Type, String tag2Value) {
 		startDate = startDate.trim(); endDate = endDate.trim(); tag1Type = tag1Type.trim(); 
 		tag1Value = tag1Value.trim(); tag2Type = tag2Type.trim(); tag2Value = tag2Value.trim();
 		
@@ -58,7 +71,6 @@ public class SearchResultsController extends Controller {
 	            alert.setTitle("Error");
 	            alert.setContentText("One or more of the entered dates do not match the format: dd/MM/yyyy");
 	            alert.showAndWait();
-	            close();
 	            return;
 			}
 		} else if (selectedOption.equals(SINGLE_TAG_SEARCH)) {
@@ -67,7 +79,6 @@ public class SearchResultsController extends Controller {
 	            alert.setTitle("Error");
 	            alert.setContentText("Some information not entered for search");
 	            alert.showAndWait();
-	            close();
 	            return;
 			}
 			singleSearch(tag1Type, tag1Value);
@@ -77,7 +88,6 @@ public class SearchResultsController extends Controller {
 	            alert.setTitle("Error");
 	            alert.setContentText("Some information not entered for search");
 	            alert.showAndWait();
-	            close();
 	            return;
 			}
 			conjunctiveSearch(tag1Type, tag2Type, tag1Value, tag2Value);
@@ -87,7 +97,6 @@ public class SearchResultsController extends Controller {
 	            alert.setTitle("Error");
 	            alert.setContentText("Some information not entered for search");
 	            alert.showAndWait();
-	            close();
 	            return;
 			}
 			disjunctiveSearch(tag1Type, tag2Type, tag1Value, tag2Value);
@@ -108,7 +117,7 @@ public class SearchResultsController extends Controller {
             alert.setContentText("No photos were found.");
             alert.showAndWait();
 		}
-		close();
+		
 	}
 	private void dateSearch(Calendar startCal, Calendar endCal) {
 		
@@ -211,11 +220,5 @@ public class SearchResultsController extends Controller {
 		return img;
 	}
 	
-	void clearTilePane() {
-		
-	}
-	
-	private void close() {
-		
-	}
+
 }

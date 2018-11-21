@@ -17,11 +17,19 @@ import model.User;
 
 public class LoginController extends Controller{
 	
-	@FXML
-	TextField loginTxt;
+	/**
+	 * The textfield where the user enters their username
+	 */
+	@FXML private TextField loginTxt;
 	
-	@FXML
-	Button loginButton;
+	/**
+	 * The button that logs the user in
+	 */
+	@FXML private Button loginButton;
+	/**
+	 * The method that checks to see if the user exists and then logs them in
+	 * @param e
+	 */
 	public void checkUserName(ActionEvent e) {
 		String userString = loginTxt.getText().trim();
 //		 TODO implement this
@@ -64,8 +72,11 @@ public class LoginController extends Controller{
 			}
 		}
 	
-	@FXML
-	public void quit(ActionEvent e) {
+	/**
+	 * Quits the program safely, loading data to UserList.dat
+	 * @param e
+	 */
+	@FXML public void quit(ActionEvent e) {
 		try {
 			FileOutputStream fos = new FileOutputStream("UserList.dat");
 			ObjectOutputStream os = new ObjectOutputStream (fos);

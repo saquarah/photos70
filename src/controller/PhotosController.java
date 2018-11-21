@@ -33,42 +33,45 @@ import model.Tag;
 import model.User;
 
 public class PhotosController extends Controller{
-	ObservableList<Photo> photoList = FXCollections.observableArrayList();
-	ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
-	ImageView selectedImageView;
-	Photo selectedPhoto;
-	Album currentAlbum; // this is an album from the user.
-	Tag selectedTag;
-	Album selectedAlbum;
+	private ObservableList<Photo> photoList = FXCollections.observableArrayList();
+	private ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
+	private ImageView selectedImageView;
+	private Photo selectedPhoto;
+	private Album currentAlbum; // this is an album from the user.
+	private Tag selectedTag;
+	private Album selectedAlbum;
 	
 	@FXML
-	TextArea captTxtArea;
+	private TextArea captTxtArea;
 	
 	@FXML
-	Label albumNameLbl;
+	private Label albumNameLbl;
 	
 	@FXML
-	TilePane tilePane;
+	private TilePane tilePane;
 	
 	@FXML
-	ScrollPane scrollpane;
+	private ScrollPane scrollpane;
 	
 	@FXML
-	Button addPhotoB, deletePhotoB,  backToAlbumB, quitB, logoutB, addTagB, deleteTagB, saveTagB, copyToOtherAlbumB;
+	private Button saveTagB;
 	@FXML
-	Button addCaptB, openB, captionB, moveToOtherAlbumB;
+	private Button addCaptB, openB, captionB, moveToOtherAlbumB;
 	
 	@FXML
-	TextField captionTxt, tagNameTxt, tagValueTxt;
+	private TextField captionTxt, tagNameTxt, tagValueTxt;
 	
 	@FXML
-	ListView<Album> albumsListView;
+	private ListView<Album> albumsListView;
 	
 	@FXML
-	ListView<Tag> tagsListView;
+	private ListView<Tag> tagsListView;
 	
-	@FXML
-	public void addPhoto(ActionEvent e) {
+	/**
+	 * Adds a photo to the album by using a file chooser
+	 * @param e
+	 */
+	@FXML public void addPhoto(ActionEvent e) {
 		FileChooser fc = new FileChooser();
 		fc.setTitle("Select image");
 		File file = fc.showOpenDialog(primaryStage);
@@ -89,8 +92,11 @@ public class PhotosController extends Controller{
 		albumsListView.refresh();
 	}
 	
-	@FXML
-	public void deletePhoto(ActionEvent e) {
+	/**
+	 * Deletes the currently selected photo from this album
+	 * @param e
+	 */
+	@FXML public void deletePhoto(ActionEvent e) {
 		if(selectedImageView == null || selectedPhoto == null) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -107,8 +113,11 @@ public class PhotosController extends Controller{
 		captTxtArea.clear();
 	}
 	
-	@FXML
-	public void caption(ActionEvent e) {
+	/**
+	 * Shows fields for adding/changing caption
+	 * @param e
+	 */
+	@FXML public void caption(ActionEvent e) {
 		if(selectedImageView == null) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -121,8 +130,11 @@ public class PhotosController extends Controller{
 		captionTxt.setVisible(true); // add cancel button to this
 	}
 	
-	@FXML
-	public void addCaption(ActionEvent e) {
+	/**
+	 * Saves new caption to selected photo
+	 * @param e
+	 */
+	@FXML public void addCaption(ActionEvent e) {
 		if(selectedImageView == null || selectedPhoto == null) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -138,20 +150,29 @@ public class PhotosController extends Controller{
 		captTxtArea.setText(selectedPhoto.getCaption());
 	}
 	
-	@FXML
-	public void openPhoto(ActionEvent e) {
+	/**
+	 * Opens selected photo in photo display
+	 * @param e
+	 */
+	@FXML public void openPhoto(ActionEvent e) {
 		photoDisplayController.start(selectedPhoto, currentAlbum);
 		openPhoto();
 	}
 	
-	@FXML
-	public void backToAlbum(ActionEvent e) {
+	/**
+	 * Goes back to screen with albums after closing this one
+	 * @param e
+	 */
+	@FXML public void backToAlbum(ActionEvent e) {
 		closeAlbum();
 		toAlbum();
 	}
 	
-	@FXML
-	public void addTag(ActionEvent e) {
+	/**
+	 * Shows fields for adding a tag
+	 * @param e
+	 */
+	@FXML public void addTag(ActionEvent e) {
 		if(selectedPhoto == null || selectedImageView == null) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -164,8 +185,11 @@ public class PhotosController extends Controller{
 		tagValueTxt.setVisible(true);
 	}
 	
-	@FXML
-	public void deleteTag(ActionEvent e) {
+	/**
+	 * Deletes currently selected tag
+	 * @param e
+	 */
+	@FXML public void deleteTag(ActionEvent e) {
 		if(selectedPhoto == null || selectedImageView == null) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -184,8 +208,11 @@ public class PhotosController extends Controller{
 		tagsListView.refresh();
 	}
 	
-	@FXML
-	public void saveTag(ActionEvent e) {
+	/**
+	 * Saves tag to photo if there is not already an identical tag
+	 * @param e
+	 */
+	@FXML public void saveTag(ActionEvent e) {
 		String tagType = tagNameTxt.getText().trim();
 		String tagValue = tagValueTxt.getText().trim();
 		
@@ -217,8 +244,11 @@ public class PhotosController extends Controller{
 		saveTagB.setVisible(false);
 	}
 	
-	@FXML
-	public void moveToOtherAlbum(ActionEvent e) {
+	/**
+	 * Moves photo to another selected album
+	 * @param e
+	 */
+	@FXML public void moveToOtherAlbum(ActionEvent e) {
 		if(selectedAlbum == currentAlbum) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -257,8 +287,11 @@ public class PhotosController extends Controller{
 	}
 	
 	
-	@FXML
-	public void copyToOtherAlbum(ActionEvent e) {
+	/**
+	 * Copies photo to another selected album
+	 * @param e
+	 */
+	@FXML public void copyToOtherAlbum(ActionEvent e) {
 		if(selectedPhoto == null || selectedImageView == null) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -313,12 +346,18 @@ public class PhotosController extends Controller{
 		Platform.exit();
 	}
 	
-	@FXML
-	public void logout(ActionEvent e) {
+	/**
+	 * Logs the user out and goes to login screen
+	 * @param e
+	 */
+	@FXML public void logout(ActionEvent e) {
 		closeAlbum();
 		logout();
 	}
 	
+	/**
+	 * Initializes scroll pane on screen
+	 */
 	public void initialize() {
 		scrollpane.setFitToWidth(true);
 		scrollpane.setContent(tilePane);

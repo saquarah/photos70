@@ -28,36 +28,134 @@ public class AlbumHomeController extends Controller{
 	private final static String CONJUNCTIVE_SEARCH = "Conjuntive tag-value search";
 	private final static String DISJUNCTIVE_SEARCH = "Disjunctive tag-value search";
 	
+	/**
+	 * The search option that the user currently has selected
+	 */
 	String selectedOption;
 	
-	@FXML
-	Label typeSearchLbl, dateLbl, dateFormatLbl;
+	/**
+	 * Labels that displays AND or OR depending on whether the search is
+	 * conjunctive or disjunctive
+	 */
+	@FXML private Label typeSearchLbl;
+	/**
+	 * Label that says TO for displaying when searching for date range
+	 */
+	@FXML private Label dateLbl;
+	/**
+	 * Label that shows the user the date format when searching for date range.
+	 */
+	@FXML private Label dateFormatLbl;
 	
-	@FXML
-	ListView<Album> albumListView;
 	
-	@FXML
-	ComboBox<String> searchOptionBox;
+	/**
+	 * ListView that shows all of the user's albums.
+	 */
+	@FXML private ListView<Album> albumListView;
 	
-	@FXML
-	Button adminB, quitB, createB, renameB, deleteB, logoutB, saveB, saveSearchAlbumBtn;
-	@FXML
-	Button searchB, newAlbumResultsB, openB, cancelSearchBtn, cancelAlbumBtn;
+	/**
+	 * Combobox that lists users options of searching.
+	 */
+	@FXML private ComboBox<String> searchOptionBox;
 	
-	@FXML
-	TextField albumNameTxt;
-	@FXML
-	TextField firstTagNameTxt, firstTagValueTxt;
-	@FXML
-	TextField secondTagNameTxt, secondTagValueTxt;
-	@FXML
-	TextField startDateTxt, endDateTxt;
-	@FXML
-	TextField searchAlbumNameTxt;
 	
+	/**
+	 * Button that takes the admin to the admin screen
+	 */
+	@FXML private Button adminB;
+	/**
+	 * Button that allows the user to safely quit
+	 */
+	@FXML private Button quitB;
+	/**
+	 * Button that shows the field and button for saving and naming an album
+	 */
+	@FXML private Button createB;
+	/**
+	 * Button that shows the field and button for saving and renaming an album
+	 */
+	@FXML private Button renameB;
+	/**
+	 * Button that deletes the currently selected album
+	 */
+	@FXML private Button deleteB;
+	/**
+	 * Button that logs the user out
+	 */
+	@FXML private Button logoutB;
+	/**
+	 * Button that saves the album
+	 */
+	@FXML private Button saveB;
+	/**
+	 * Button that saves the album of search results to the user's albums
+	 */
+	@FXML private Button saveSearchAlbumBtn;
+	/**
+	 * Button that begins search
+	 */
+	@FXML private Button searchB;
+	/**
+	 * Button that shows field and button for making a new album with search results
+	 */
+	@FXML private Button newAlbumResultsB;
+	/**
+	 * Button that opens the selected album
+	 */
+	@FXML private Button openB;
+	/**
+	 * Button that cancels the current search
+	 */
+	@FXML private Button cancelSearchBtn;
+	/**
+	 * Button that cancels adding or renaming an album
+	 */
+	@FXML private Button cancelAlbumBtn;
+	
+	/**
+	 * The textfield where the user enters an album's name
+	 */
+	@FXML private TextField albumNameTxt;
+	/**
+	 * The textfield where the user enters the first tag name they wish to search for
+	 */
+	@FXML private TextField firstTagNameTxt;
+	/**
+	 * The textfield where the user enters the first tag value they wish to search for
+	 */
+	@FXML private TextField firstTagValueTxt;
+	/**
+	 * The textfield where the user enters the second tag name they wish to search for
+	 */
+	@FXML private TextField secondTagNameTxt;
+	/**
+	 * The textfield where the user enters the second tag value they wish to search for
+	 */
+	@FXML private TextField secondTagValueTxt;
+	
+	/**
+	 * The textfield where the user enters the start date they wish to search for
+	 */
+	@FXML private TextField startDateTxt;
+	/**
+	 * The textfield where the user enters the end date they wish to search for
+	 */
+	@FXML private TextField endDateTxt;
+	/**
+	 * The textfield where the user enters the name they want for the album made using the
+	 * search results
+	 */
+	@FXML private TextField searchAlbumNameTxt;
+	
+	/**
+	 * The album the user is currently selecting.
+	 */
 	Album selectedAlbum;
 	
 	boolean adding = false;
+	/**
+	 * Initializes the search option box.
+	 */
 	public void initialize() {
 		searchOptionBox.getItems().add("Date range search");
 		searchOptionBox.getItems().add("Single tag-value search");
@@ -65,6 +163,10 @@ public class AlbumHomeController extends Controller{
 		searchOptionBox.getItems().add("Disjunctive tag-value search");
 	}
 	
+	/**
+	 * Initializes fields every time this screen is loaded. Also loads in the albums
+	 * from the user.
+	 */
 	public void start() {
 		searchOptionBox.getSelectionModel().clearSelection();
 		selectedOption = null;
@@ -88,27 +190,40 @@ public class AlbumHomeController extends Controller{
 		loadAlbumList();
 	}
 	
-	@FXML
-	public void adminPressed(ActionEvent e) {
+	
+	/**
+	 * Goes to the admin screen
+	 * @param e
+	 */
+	@FXML public void adminPressed(ActionEvent e) {
 		toAdmin();
 	}
 	
-	@FXML
-	public void createAlbum(ActionEvent e) {
+	/**
+	 * Shows field and button for creating album.
+	 * @param e
+	 */
+	@FXML public void createAlbum(ActionEvent e) {
 		adding = true;
 		albumNameTxt.setPromptText("Enter name");
 		setCreationVisibility(true);
 	}
 	
-	@FXML
-	public void renameAlbum(ActionEvent e) {
+	/**
+	 * Shows field and button for renaming album
+	 * @param e
+	 */
+	@FXML public void renameAlbum(ActionEvent e) {
 		adding = false;
 		albumNameTxt.setPromptText("Enter new name");
 		setCreationVisibility(true);
 	}
 	
-	@FXML
-	public void deleteAlbum(ActionEvent e) {
+	/**
+	 * Deletes the album that is currently selected.
+	 * @param e
+	 */
+	@FXML public void deleteAlbum(ActionEvent e) {
 		if(selectedAlbum != null) {
 			currentUser().getAlbumList().remove(selectedAlbum);
 			albumList.remove(selectedAlbum);
@@ -125,8 +240,12 @@ public class AlbumHomeController extends Controller{
 		}
 	}
 	
-	@FXML
-	public void saveAlbum(ActionEvent e) {
+	/**
+	 * Saves the album using the name from the album text field, adding it to the user's
+	 * albums.
+	 * @param e
+	 */
+	@FXML public void saveAlbum(ActionEvent e) {
 		String albumName = albumNameTxt.getText().trim();
 		if(albumName.length() == 0) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -160,8 +279,13 @@ public class AlbumHomeController extends Controller{
 		albumNameTxt.clear();
 	}
 	
-	@FXML
-	public void searchOption(ActionEvent e) {
+	
+	/**
+	 * Activates when the user changes search option, adding necessary fields for the
+	 * search
+	 * @param e
+	 */
+	@FXML public void searchOption(ActionEvent e) {
 		dateFormatLbl.setVisible(false);
 		searchB.setVisible(true);
 		makeTagStuffGoAway();
@@ -186,8 +310,11 @@ public class AlbumHomeController extends Controller{
 		}
 	}
 	
-	@FXML
-	public void search(ActionEvent e) {
+	/**
+	 * Searches for photos that match the tags/dates
+	 * @param e
+	 */
+	@FXML public void search(ActionEvent e) {
 		searchResultsController.start(selectedOption, startDateTxt.getText(),
 				endDateTxt.getText(), firstTagNameTxt.getText(),
 				firstTagValueTxt.getText(), secondTagNameTxt.getText(),
@@ -207,21 +334,30 @@ public class AlbumHomeController extends Controller{
 		
 	}
 	
-	@FXML
-	public void cancelAlbumOperation(ActionEvent e) {
+	/**
+	 * Cancels adding/renaming an album
+	 * @param e
+	 */
+	@FXML public void cancelAlbumOperation(ActionEvent e) {
 		albumNameTxt.clear();
 		albumNameTxt.setVisible(false);
 		saveB.setVisible(false);
 	}
 	
-	@FXML
-	public void createNewAlbumWithResults(ActionEvent e) {
+	/**
+	 * Shows fields for creating new album
+	 * @param e
+	 */
+	@FXML public void createNewAlbumWithResults(ActionEvent e) {
 		searchAlbumNameTxt.setVisible(true);
 		saveSearchAlbumBtn.setVisible(true);
 	}
 	
-	@FXML
-	public void saveSearchAlbum(ActionEvent e) {
+	/**
+	 * Saves the album containing search results.
+	 * @param e
+	 */
+	@FXML public void saveSearchAlbum(ActionEvent e) {
 		String albumName = searchAlbumNameTxt.getText().trim();
 		if(albumName.length() == 0) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -260,8 +396,11 @@ public class AlbumHomeController extends Controller{
 		
 	}
 	
-	@FXML
-	public void cancelSearch(ActionEvent e) {
+	/**
+	 * Stops search and ability to add an album with search results.
+	 * @param e
+	 */
+	@FXML public void cancelSearch(ActionEvent e) {
 		searchAlbumNameTxt.clear();
 		searchAlbumNameTxt.setVisible(false);
 		newAlbumResultsB.setVisible(false);
@@ -271,8 +410,11 @@ public class AlbumHomeController extends Controller{
 		cancelSearchBtn.setVisible(false);
 	}
 	
-	@FXML
-	public void openAlbum(ActionEvent e) {
+	/**
+	 * Opens the selected album, transitioning to the photos screen
+	 * @param e
+	 */
+	@FXML public void openAlbum(ActionEvent e) {
 		if(selectedAlbum == null) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -285,14 +427,20 @@ public class AlbumHomeController extends Controller{
 		
 	}
 	
-	@FXML
-	public void logout(ActionEvent e) {
+	/**
+	 * Closes albums and logs the user out
+	 * @param e
+	 */
+	@FXML public void logout(ActionEvent e) {
 		closeAlbums();
 		logout();
 	}
 	
-	@FXML
-	public void quit(ActionEvent e) {
+	/**
+	 * Safely writes data to Userlist.dat and then terminates program.
+	 * @param e
+	 */
+	@FXML public void quit(ActionEvent e) {
 		try {
 			FileOutputStream fos = new FileOutputStream("UserList.dat");
 			ObjectOutputStream os = new ObjectOutputStream (fos);

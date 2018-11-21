@@ -18,27 +18,69 @@ import model.Photo;
 import model.User;
 
 public class PhotoDisplayController extends Controller{
-	static final double FIT_HEIGHT = 393.0;
-	static final double FIT_WIDTH = 878.0;
+	private static final double FIT_HEIGHT = 393.0;
+	private static final double FIT_WIDTH = 878.0;
 	
-	static final double ANCHOR_WIDTH = 1028.0;
-	static final double LAYOUT_X = 75.0;
+	private static final double ANCHOR_WIDTH = 1028.0;
+	private static final double LAYOUT_X = 75.0;
 	
+	/**
+	 * The album that is currently being viewed
+	 */
 	Album currentAlbum;
+	/**
+	 * The photo the user is selecting
+	 */
 	Photo currentPhoto;
 	
-	@FXML
-	Button prevPhotoB, nextPhotoB, backToAlbumB, logoutB, quitB;
+	/**
+	 * The button that shows the previous photo in the album
+	 */
+	@FXML private Button prevPhotoB;
+	/**
+	 * The button that shows the next photo in the album
+	 */
+	@FXML private Button nextPhotoB;
+	/**
+	 * The button that shows goes back to viewing the album
+	 */
+	@FXML private Button backToAlbumB;
+	/**
+	 * The button that logs the user out
+	 */
+	@FXML private Button logoutB;
+	/**
+	 * The button that quits the program
+	 */
+	@FXML private Button quitB;
 	
-	@FXML
-	Label albumLabel, dateLabel;
+	/**
+	 * Label that shows the album name
+	 */
+	@FXML private Label albumLabel;
+	/**
+	 * Label that shows the date of the photo
+	 */
+	@FXML private Label dateLabel;
+	/**
+	 * Text area where tags are shown
+	 */
+	@FXML private TextArea tagTxtArea;
+	/**
+	 * Text area where captions are shown
+	 */
+	@FXML private TextArea captionTxtArea;
 	
-	@FXML
-	TextArea tagTxtArea, captionTxtArea;
+	/**
+	 * ImageView used to display the photo
+	 */
+	@FXML private ImageView imageView;
 	
-	@FXML
-	ImageView imageView;
-	
+	/**
+	 * Initializes the photo displayer
+	 * @param firstViewed The photo the program will begin with viewing
+	 * @param currentAlbum the current album being viewed
+	 */
 	public void start(Photo firstViewed, Album currentAlbum) {
 		tagTxtArea.setWrapText(true);
 		captionTxtArea.setWrapText(true);
@@ -53,8 +95,11 @@ public class PhotoDisplayController extends Controller{
 		checkForNext();
 	}
 	
-	@FXML
-	public void prevPhoto(ActionEvent e) {
+	/**
+	 * Goes to the previous photo, if there is one
+	 * @param e
+	 */
+	@FXML public void prevPhoto(ActionEvent e) {
 		
 		int currentIndx = currentAlbum.getPhotos().indexOf(currentPhoto);
 		currentPhoto = currentAlbum.getPhotos().get(currentIndx - 1);
@@ -64,8 +109,11 @@ public class PhotoDisplayController extends Controller{
 		checkForNext();
 	}
 	
-	@FXML
-	public void nextPhoto(ActionEvent e) {
+	/**
+	 * Goes to the next photo, if there is one
+	 * @param e
+	 */
+	@FXML public void nextPhoto(ActionEvent e) {
 		
 		int currentIndx = currentAlbum.getPhotos().indexOf(currentPhoto);
 		currentPhoto = currentAlbum.getPhotos().get(currentIndx + 1);
@@ -75,21 +123,30 @@ public class PhotoDisplayController extends Controller{
 		checkForPrev();
 	}
 	
-	@FXML
-	public void backToAlbum(ActionEvent e) {
+	/**
+	 * Goes back to the view of the entire album
+	 * @param e
+	 */
+	@FXML public void backToAlbum(ActionEvent e) {
 		toPhotos();
 		
 	}
 	
-	@FXML
-	public void logout(ActionEvent e) {
+	/**
+	 * Logs the user out and goes to login screen
+	 * @param e
+	 */
+	@FXML public void logout(ActionEvent e) {
 		photosController.closeAlbum();
 		logout();
 		
 	}
 	
-	@FXML
-	public void quit(ActionEvent e) {
+	/**
+	 * Quits the program, loading data to UserList.dat
+	 * @param e
+	 */
+	@FXML public void quit(ActionEvent e) {
 		try {
 			FileOutputStream fos = new FileOutputStream("UserList.dat");
 			ObjectOutputStream os = new ObjectOutputStream (fos);

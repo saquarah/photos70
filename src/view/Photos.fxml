@@ -22,22 +22,22 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Button fx:id="addPhotoB" layoutX="25.0" layoutY="500.0" mnemonicParsing="false" onAction="#addPhoto" text="Add photo" />
-      <Button fx:id="deletePhotoB" layoutX="134.0" layoutY="500.0" mnemonicParsing="false" onAction="#deletePhoto" text="Delete Photo" />
+      <Button layoutX="25.0" layoutY="500.0" mnemonicParsing="false" onAction="#addPhoto" text="Add photo" />
+      <Button layoutX="134.0" layoutY="500.0" mnemonicParsing="false" onAction="#deletePhoto" text="Delete Photo" />
       <Label fx:id="albumNameLbl" layoutX="346.0" layoutY="58.0" text="Album Name" />
       <Button fx:id="captionB" layoutX="253.0" layoutY="500.0" mnemonicParsing="false" onAction="#caption" text="Caption" />
       <TextField fx:id="captionTxt" layoutX="208.0" layoutY="530.0" promptText="Enter caption" />
-      <Button fx:id="backToAlbumB" layoutX="13.0" layoutY="28.0" mnemonicParsing="false" onAction="#backToAlbum" text="Back to Albums" />
+      <Button layoutX="13.0" layoutY="28.0" mnemonicParsing="false" onAction="#backToAlbum" text="Back to Albums" />
       <ListView fx:id="tagsListView" layoutX="794.0" layoutY="84.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="873.0" layoutY="67.0" text="Tags" />
-      <Button fx:id="quitB" layoutX="897.0" layoutY="28.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
-      <Button fx:id="logoutB" layoutX="943.0" layoutY="28.0" mnemonicParsing="false" onAction="#logout" text="Log out" />
-      <Button fx:id="addTagB" layoutX="794.0" layoutY="303.0" mnemonicParsing="false" onAction="#addTag" text="Add tag" />
-      <Button fx:id="deleteTagB" layoutX="910.0" layoutY="303.0" mnemonicParsing="false" onAction="#deleteTag" text="Delete Tag" />
+      <Button layoutX="897.0" layoutY="28.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
+      <Button layoutX="943.0" layoutY="28.0" mnemonicParsing="false" onAction="#logout" text="Log out" />
+      <Button layoutX="794.0" layoutY="303.0" mnemonicParsing="false" onAction="#addTag" text="Add tag" />
+      <Button layoutX="910.0" layoutY="303.0" mnemonicParsing="false" onAction="#deleteTag" text="Delete Tag" />
       <TextField fx:id="tagNameTxt" layoutX="794.0" layoutY="337.0" promptText="Tag name" />
       <TextField fx:id="tagValueTxt" layoutX="794.0" layoutY="372.0" promptText="Tag Value" />
       <Button fx:id="saveTagB" layoutX="847.0" layoutY="415.0" mnemonicParsing="false" onAction="#saveTag" text="Save Tag" />
-      <Button fx:id="copyToOtherAlbumB" layoutX="499.0" layoutY="500.0" mnemonicParsing="false" onAction="#copyToOtherAlbum" text="Copy to another album" />
+      <Button layoutX="499.0" layoutY="500.0" mnemonicParsing="false" onAction="#copyToOtherAlbum" text="Copy to another album" />
       <Button fx:id="moveToOtherAlbumB" layoutX="664.0" layoutY="500.0" mnemonicParsing="false" onAction="#moveToOtherAlbum" text="Move to another album" />
       <ListView fx:id="albumsListView" layoutX="820.0" layoutY="460.0" prefHeight="100.0" prefWidth="139.0" />
       <Label layoutX="866.0" layoutY="445.0" text="Albums" />

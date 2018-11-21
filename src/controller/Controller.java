@@ -21,36 +21,88 @@ import model.Photo;
 import model.User;
 
 public class Controller {
-	static Stage loginStage;
-	static Stage albumStage;
-	
-	
+	/**
+	 * The Scene for the login screen
+	 */
 	static Scene loginScene;
+	/**
+	 * The Scene for the admin screen
+	 */
 	static Scene adminScene;
+	/**
+	 * The Scene for the albums screen
+	 */
 	static Scene albumHomeScene;
+	/**
+	 * The Scene for the photos(inside album) screen
+	 */
 	static Scene photosScene;
+	/**
+	 * The Scene for the photo display screen
+	 */
 	static Scene photoDisplayScene;
+	/**
+	 * The Scene for the search results screen
+	 */
 	static Scene searchResultsScene;
 	
+	/**
+	 * The Controller for the login screen
+	 */
 	static LoginController loginController;
+	/**
+	 * The Controller for the admin screen
+	 */
 	static AdminController adminController;
+	/**
+	 * The Controller for the albums screen
+	 */
 	static AlbumHomeController albumController;
+	/**
+	 * The Controller for the inside album screen
+	 */
 	static PhotosController photosController;
+	/**
+	 * The Controller for the photo results screen
+	 */
 	static PhotoDisplayController photoDisplayController;
+	/**
+	 * The Controller for the search results screen
+	 */
 	static SearchResultsController searchResultsController;
 	
+	/**
+	 * The Stage for the main application
+	 */
 	static Stage primaryStage;
+	/**
+	 * The Stage for the search results.
+	 */
 	static Stage secondaryStage;
 	
 	private static User user;
 	
+	/**
+	 * The observable list of users
+	 */
 	static ObservableList<User> userList = FXCollections.observableArrayList();
+	/**
+	 * The observable list of the user's albums
+	 */
 	static ObservableList<Album> albumList = FXCollections.observableArrayList();
+	/**
+	 * Sets primary stage
+	 * @param primaryStage
+	 */
 	public void setPrimaryStage(Stage primaryStage) {
 		Controller.primaryStage = primaryStage;
 	}
 
-	
+	/**
+	 * Loads FXML and also loads data from UserList.dat
+	 * @param primaryStage
+	 * @throws IOException
+	 */
 	public static void initializeFXML(Stage primaryStage) throws IOException {
 		Controller.primaryStage = primaryStage;
 		secondaryStage = new Stage();
@@ -77,7 +129,7 @@ public class Controller {
 			userList.addAll(list);
 			}
 			else {
-				System.out.println("no such file");
+				
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -126,8 +178,6 @@ public class Controller {
 		photoDisplayScene = new Scene(photoDispRoot);
 		photoDisplayController = photoDispLoader.getController();
 		
-		loginStage = primaryStage;
-		albumStage = new Stage();
 		
 		
 		login();
@@ -144,6 +194,10 @@ public class Controller {
 		 */
 	}
 	
+	/**
+	 * Initializes userlist with admin and stock users unless they already
+	 * exist
+	 */
 	public static void initializeUserList() {
 		
 		if(!userInList("admin")) {
@@ -178,7 +232,9 @@ public class Controller {
 		return photo;
 		
 	}
-	
+	/**
+	 * Shows login screen
+	 */
 	public static void login() {
 		
 		
@@ -197,7 +253,9 @@ public class Controller {
 		//adminStage.show();
 		primaryStage.show();
 	}
-	
+	/**
+	 * Goes to album screen
+	 */
 	public static void toAlbum() {
 		primaryStage.hide();
 		primaryStage.setScene(albumHomeScene);
@@ -211,7 +269,9 @@ public class Controller {
 //		
 //		primaryStage.show();
 //	}
-	
+	/**
+	 * Logs user out and goes to logout screen
+	 */
 	public static void logout() {
 		primaryStage.hide();
 		primaryStage.setScene(loginScene);
@@ -219,14 +279,19 @@ public class Controller {
 		albumList = FXCollections.observableArrayList(); // reset albumList
 		primaryStage.show();
 	}
-	
+	/**
+	 * Goes to photos screen
+	 */
 	public static void toPhotos() {
 		primaryStage.hide();
 		primaryStage.setScene(photosScene);
 		photosController.start();
 		primaryStage.show();
 	}
-	
+	/**
+	 * Opens an album to go into photos screen
+	 * @param thisAlbum
+	 */
 	public static void openThisAlbum(Album thisAlbum) {
 		primaryStage.hide();
 		primaryStage.setScene(photosScene);
@@ -255,7 +320,9 @@ public class Controller {
 		
 		primaryStage.show();
 	}
-	
+	/**
+	 * Opens a photo to go into the photo display screen
+	 */
 	public static void openPhoto() {
 		primaryStage.hide();
 		primaryStage.setScene(photoDisplayScene);
@@ -281,8 +348,7 @@ public class Controller {
 	}
 	
 	/**
-	 * 
-	 * @param usr
+	 * @param albumName
 	 * @return boolean value as true if album found
 	 */
 	public static boolean albumInList(String albumName) {
@@ -316,11 +382,15 @@ public class Controller {
 	
 	/**
 	 * setting current user
+	 * @param usr
 	 */
 	public static void setUser(User usr) {
 		user = usr;
 	}
 	
+	/**
+	 * @return the current user
+	 */
 	public static User currentUser() {
 		return user;
 	}

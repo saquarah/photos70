@@ -19,22 +19,27 @@ public class AdminController extends Controller{
 	private User selectedUser;
 	
 	@FXML
-	Button addUserB, deleteUserB, saveB, backB;
+	private Button addUserB, deleteUserB, saveB, backB;
 	
 	@FXML
-	TextField userNameTxt;
+	private TextField userNameTxt;
 	
 	@FXML
-	ListView<User> userListView;
+	private ListView<User> userListView;
 	
-	@FXML
-	public void addUser(ActionEvent e) {
+	
+	/**
+	 * This method activates when the add user button is pressed. It makes
+	 * the text field for the username and the save button appear.
+	 * @param e
+	 */
+	@FXML public void addUser(ActionEvent e) {
 		userNameTxt.setVisible(true);
 		saveB.setVisible(true);
 	}
 	
 	/**
-	 * Gets selected index of users from userList and deletes the user.
+	 * Deletes the current user that is selected in the list of users.
 	 * @param e
 	 */
 	@FXML
@@ -45,6 +50,10 @@ public class AdminController extends Controller{
 		deleteUser(i);
 	}
 	
+	/**
+	 * Saves the user to the list of users.
+	 * @param e
+	 */
 	@FXML void saveUser(ActionEvent e) {
 		String userName = userNameTxt.getText().trim();
 		
