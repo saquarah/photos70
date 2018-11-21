@@ -82,7 +82,7 @@ public class Photo implements Serializable{
 		this.tags = tags;
 	}
 	public void addTag(String type, String value) {
-		Tag newTag = new Tag(type, value, this);
+		Tag newTag = new Tag(type, value);
 		tags.add(newTag);
 	}
 	

@@ -4,12 +4,10 @@ import java.io.Serializable;
 
 public class Tag implements Serializable{
 	private String type, value;
-	private Photo photo;
-	public Tag(String type, String value, Photo photo) {
+	public Tag(String type, String value) {
 		super();
 		this.type = type;
 		this.value = value;
-		this.photo = photo;
 	}
 	public String getTag() {
 		return type;
@@ -17,12 +15,20 @@ public class Tag implements Serializable{
 	public String getValue() {
 		return value;
 	}
-	public Photo getPhoto() {
-		return photo;
-	}
 	public String toString() {
 		return type + "=" + value;
 	}
 	
+	public boolean equals(Object o) {
+		if(o == null || !(o instanceof Tag)) {
+			return false;
+		}
+		Tag tag = (Tag) o;
+		if(this.type.toLowerCase().equals(tag.type.toLowerCase())  &&
+				this.value.toLowerCase().equals(tag.value.toLowerCase())) {
+			return true;
+		}
+		return false;
+	}
 	
 }

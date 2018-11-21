@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,6 +40,9 @@ public class PhotosController extends Controller{
 	Album currentAlbum; // this is an album from the user.
 	Tag selectedTag;
 	Album selectedAlbum;
+	
+	@FXML
+	TextArea captTxtArea;
 	
 	@FXML
 	Label albumNameLbl;
@@ -71,6 +75,13 @@ public class PhotosController extends Controller{
 		if(file == null) {
 			return;
 		}
+		if( !isPhoto(file) ) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("The file you chose was not a .png, .jpeg, or .jpg");
+            alert.showAndWait();
+            return;
+		}
 		Photo newPhoto = fileToPhoto(file);
 		photoList.add(newPhoto);
 		addToTilePane(newPhoto);
@@ -93,6 +104,7 @@ public class PhotosController extends Controller{
 		// in place yet.
 		deleteSelectedPhoto();
 		albumsListView.refresh();
+		captTxtArea.clear();
 	}
 	
 	@FXML
@@ -123,6 +135,7 @@ public class PhotosController extends Controller{
 		captionTxt.setVisible(false);
 		addCaptB.setVisible(false);
 		captionTxt.clear();
+		captTxtArea.setText(selectedPhoto.getCaption());
 	}
 	
 	@FXML
@@ -184,6 +197,16 @@ public class PhotosController extends Controller{
             return;
 		}
 		
+		for(Tag tag: selectedPhoto.getTags()) {
+			if(tag.equals(new Tag(tagType, tagValue))) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setTitle("Error");
+	            alert.setContentText("Cannot add two of the same tag (with same name and value) to the same photo");
+	            alert.showAndWait();
+	            return;
+			}
+		}
+		
 		selectedPhoto.addTag(tagType, tagValue);
 		tagsListView.setItems(selectedPhoto.getTags());
 		
@@ -229,6 +252,7 @@ public class PhotosController extends Controller{
 		
 		selectedAlbum.addToAlbum(movingPhoto);
 		albumsListView.refresh();
+		captTxtArea.clear();
 		
 	}
 	
@@ -305,6 +329,7 @@ public class PhotosController extends Controller{
 	 * with those photos and adding them to imageViewList. Also links the album to this controller.
 	 */
 	public void start(Album thisAlbum) {
+		captTxtArea.setWrapText(true);
 		albumNameLbl.setText(thisAlbum.getName());
 		
 		tagsListView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> selectTag());
@@ -400,9 +425,19 @@ public class PhotosController extends Controller{
 					// the tagListView must show all of that images tags.
 					tagsListView.setItems(selectedPhoto.getTags());
 					selectedTag = null;
+					captTxtArea.setText(selectedPhoto.getCaption());
 				}
 			}
 		});
 	}
 	
+	private boolean isPhoto(File file) {
+		String[] acceptedFileExtension = {"jpg", "jpeg", "png"};
+		for(String extension: acceptedFileExtension) {
+			if(file.getName().toLowerCase().endsWith(extension)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
