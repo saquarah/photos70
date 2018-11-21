@@ -42,6 +42,7 @@ public class SearchResultsController extends Controller {
 		this.selectedOption = selectedOption;
 		scrollpane.setContent(tilePane);
 		scrollpane.setFitToWidth(true);
+		tilePane.getChildren().clear();
 		
 		searchResults.clear();
 		
@@ -94,7 +95,9 @@ public class SearchResultsController extends Controller {
 		
 		// file tilePane
 		for(Photo photo: searchResults) {
-			ImageView img = new ImageView(photo.getThumbnail());
+			ImageView img = new ImageView();
+			img.setImage(photo.getThumbnail());
+			img = initializeImageView(img);
 			tilePane.getChildren().add(img);
 			}
 		
@@ -190,6 +193,17 @@ public class SearchResultsController extends Controller {
 		newCal.setTime(date);
 		return newCal;
 	}
+	
+	private ImageView initializeImageView(ImageView img) {
+		img.setFitWidth(100.0);
+		img.setFitHeight(100.0);
+		return img;
+	}
+	
+	void clearTilePane() {
+		
+	}
+	
 	private void close() {
 		
 	}

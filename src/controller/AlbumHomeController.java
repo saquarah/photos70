@@ -57,8 +57,9 @@ public class AlbumHomeController extends Controller{
 	}
 	
 	public void start() {
-		selectedOption = null;
 		searchOptionBox.getSelectionModel().clearSelection();
+		selectedOption = null;
+		
 		searchB.setVisible(false);
 		newAlbumResultsB.setVisible(false);
 		makeTagStuffGoAway();
@@ -150,18 +151,20 @@ public class AlbumHomeController extends Controller{
 		searchB.setVisible(true);
 		makeTagStuffGoAway();
 		selectedOption = searchOptionBox.getSelectionModel().getSelectedItem();
-		if(selectedOption.equals(DATE_SEARCH)) {
-			setDateSearchVisibility(true);
-		} else if (selectedOption.equals(SINGLE_TAG_SEARCH)) {
-			showFirstTag();
-		} else if (selectedOption.equals(CONJUNCTIVE_SEARCH)) {
-			showFirstTag();
-			showSecondTag();
-			typeSearchLbl.setText("AND");
-		} else if (selectedOption.equals(DISJUNCTIVE_SEARCH)) {
-			showFirstTag();
-			showSecondTag();
-			typeSearchLbl.setText("OR");
+		if(selectedOption != null) {
+			if(selectedOption.equals(DATE_SEARCH)) {
+				setDateSearchVisibility(true);
+			} else if (selectedOption.equals(SINGLE_TAG_SEARCH)) {
+				showFirstTag();
+			} else if (selectedOption.equals(CONJUNCTIVE_SEARCH)) {
+				showFirstTag();
+				showSecondTag();
+				typeSearchLbl.setText("AND");
+			} else if (selectedOption.equals(DISJUNCTIVE_SEARCH)) {
+				showFirstTag();
+				showSecondTag();
+				typeSearchLbl.setText("OR");
+			}
 		}
 	}
 	
@@ -174,9 +177,12 @@ public class AlbumHomeController extends Controller{
 		// a 7 parameter method i am dying
 		clearSearchFields();
 		ObservableList<Photo> searchResults = searchResultsController.searchResults;
-		if(!searchResults.isEmpty()) {
+		if(searchResults.isEmpty()) {
 			newAlbumResultsB.setVisible(false);
+		} else {
+			secondaryStage.show();
 		}
+		
 	}
 	
 	@FXML

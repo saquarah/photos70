@@ -59,6 +59,7 @@ public class Controller {
 		searchResultsScene = new Scene(searchResultsRoot);
 		searchResultsController = searchResultsLoader.getController();
 		searchResultsController.setPrimaryStage(secondaryStage);
+		secondaryStage.setScene(searchResultsScene);
 		
 //		try {
 //			FileInputStream fis = new FileInputStream("UserList.dat");
