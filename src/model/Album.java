@@ -25,12 +25,16 @@ public class Album implements Serializable{
 	}
 	
 	public String toString() {
+		String photoPlur = "photos";
+		if(photos.size() == 1) {
+			photoPlur = "photo";
+		}
 		if(photos.size() == 0) {
 			return name + " | 0 photos |";
 		}
 		String strEarlyDate = earliestDate.getTime().toString();
 		String strLateDate = latestDate.getTime().toString();
-		return name + "|" + photos.size() + " photos | From " + strEarlyDate + " to " + strLateDate;
+		return name + "|" + photos.size() + " " + photoPlur + " | From " + strEarlyDate + " to " + strLateDate;
 	}
 	
 	public void setName(String name) {

@@ -22,7 +22,6 @@ public class Photo implements Serializable{
 	
 	private static final long serialVersionUID = -6324409348554636338L;
 	private String caption;
-	private Album rootAlbum;
 	private transient Image image;
 	private transient Image thumbnail;
 	private File file;
@@ -66,10 +65,7 @@ public class Photo implements Serializable{
 	public ObservableList<Tag> getTags() {
 		return tags;
 	}
-	
-	public Album getRootAlbum() {
-		return rootAlbum;
-	}
+
 	public File getFile() {
 		return file;
 	}
