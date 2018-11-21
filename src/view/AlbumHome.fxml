@@ -24,9 +24,9 @@
       <Button fx:id="saveB" layoutX="205.0" layoutY="410.0" mnemonicParsing="false" onAction="#saveAlbum" text="Save" />
       <Button fx:id="logoutB" layoutX="943.0" layoutY="28.0" mnemonicParsing="false" onAction="#logout" text="Log out" />
       <Button fx:id="quitB" layoutX="897.0" layoutY="28.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
-      <ComboBox fx:id="searchOptionBox" layoutX="805.0" layoutY="107.0" prefWidth="150.0" promptText="Search Options" />
+      <ComboBox fx:id="searchOptionBox" layoutX="805.0" layoutY="107.0" onAction="#searchOption" prefWidth="190.0" promptText="Search Options" />
       <TextField fx:id="firstTagNameTxt" layoutX="777.0" layoutY="193.0" prefHeight="25.0" prefWidth="90.0" promptText="Tag name" />
-      <Label fx:id="typeSearchLbl" layoutX="857.0" layoutY="218.0" text="AND/OR" />
+      <Label fx:id="typeSearchLbl" layoutX="876.0" layoutY="218.0" text="AND/OR" />
       <TextField fx:id="firstTagValueTxt" layoutX="898.0" layoutY="193.0" prefHeight="25.0" prefWidth="90.0" promptText="Tag value" />
       <TextField fx:id="secondTagNameTxt" layoutX="777.0" layoutY="233.0" prefHeight="25.0" prefWidth="90.0" promptText="Tag name" />
       <TextField fx:id="secondTagValueTxt" layoutX="898.0" layoutY="233.0" prefHeight="25.0" prefWidth="90.0" promptText="Tag value" />

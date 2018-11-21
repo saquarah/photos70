@@ -21,6 +21,14 @@ import model.Album;
 import model.User;
 
 public class AlbumHomeController extends Controller{
+	
+	private final static String DATE_SEARCH = "Date range search";
+	private final static String SINGLE_TAG_SEARCH = "Single tag-value search";
+	private final static String CONJUNCTIVE_SEARCH = "Conjuntive tag-value search";
+	private final static String DISJUNCTIVE_SEARCH = "Disjunctive tag-value search";
+	
+	String selectedOption;
+	
 	@FXML
 	Label typeSearchLbl, dateLbl;
 	
@@ -48,10 +56,19 @@ public class AlbumHomeController extends Controller{
 	
 	boolean adding = false;
 	public void initialize() {
-		
+		searchOptionBox.getItems().add("Date range search");
+		searchOptionBox.getItems().add("Single tag-value search");
+		searchOptionBox.getItems().add("Conjuntive tag-value search");
+		searchOptionBox.getItems().add("Disjunctive tag-value search");
 	}
 	
 	public void start() {
+		selectedOption = null;
+		searchOptionBox.getSelectionModel().clearSelection();
+		searchB.setVisible(false);
+		newAlbumResultsB.setVisible(false);
+		makeTagStuffGoAway();
+		setDateSearchVisibility(false);
 		setCreationVisibility(false);
 		albumListView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> selectAlbum());
 		if(!currentUser().getUserName().equals("admin")) {
@@ -132,6 +149,26 @@ public class AlbumHomeController extends Controller{
 		albumListView.refresh();
 		setCreationVisibility(false);
 		albumNameTxt.clear();
+	}
+	
+	@FXML
+	public void searchOption(ActionEvent e) {
+		searchB.setVisible(true);
+		makeTagStuffGoAway();
+		String selectedOption = searchOptionBox.getSelectionModel().getSelectedItem();
+		if(selectedOption.equals(DATE_SEARCH)) {
+			setDateSearchVisibility(true);
+		} else if (selectedOption.equals(SINGLE_TAG_SEARCH)) {
+			showFirstTag();
+		} else if (selectedOption.equals(CONJUNCTIVE_SEARCH)) {
+			showFirstTag();
+			showSecondTag();
+			typeSearchLbl.setText("AND");
+		} else if (selectedOption.equals(DISJUNCTIVE_SEARCH)) {
+			showFirstTag();
+			showSecondTag();
+			typeSearchLbl.setText("OR");
+		}
 	}
 	
 	@FXML
@@ -244,10 +281,14 @@ public class AlbumHomeController extends Controller{
 		firstTagValueTxt.setVisible(true);
 	}
 	private void showSecondTag() {
-		typeSearchLbl.setVisible(false);
+		typeSearchLbl.setVisible(true);
 		secondTagNameTxt.setVisible(true);
 		secondTagValueTxt.setVisible(true);
 	}
 	
-	
+	private void makeSecondTagGoAway() {
+		typeSearchLbl.setVisible(false);
+		secondTagNameTxt.setVisible(false);
+		secondTagValueTxt.setVisible(false);
+	}
 }
