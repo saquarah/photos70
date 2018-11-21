@@ -114,7 +114,9 @@ public class SearchResultsController extends Controller {
 		for(Album album: currentUser().getAlbumList()) {
 			for(Photo photo: album.getPhotos()) {
 				if(photo.getDate().compareTo(startCal) >= 0 && photo.getDate().compareTo(endCal) <= 0) {
-					searchResults.add(photo);
+					if(!searchResults.contains(photo)) {
+						searchResults.add(photo);
+					}
 				}
 			}
 		}
@@ -124,7 +126,8 @@ public class SearchResultsController extends Controller {
 			for(Photo photo: album.getPhotos()) {
 				for(Tag tag: photo.getTags()) {
 					if(tagType.toLowerCase().equals(tag.getTag().toLowerCase()) && tagValue.toLowerCase().equals(tag.getValue().toLowerCase())) {
-						searchResults.add(photo);
+						if(!searchResults.contains(photo))
+							searchResults.add(photo);
 					}
 				}
 			}
@@ -143,7 +146,8 @@ public class SearchResultsController extends Controller {
 					if(!hasSecondTag)
 						hasSecondTag = tag2Type.toLowerCase().equals(tag.getTag().toLowerCase()) && tag2Value.toLowerCase().equals(tag.getValue().toLowerCase());
 					if(hasFirstTag && hasSecondTag) {
-						searchResults.add(photo);
+						if(!searchResults.contains(photo))
+							searchResults.add(photo);
 					}
 				}
 			}
@@ -162,7 +166,8 @@ public class SearchResultsController extends Controller {
 					if(!hasSecondTag)
 						hasSecondTag = tag2Type.toLowerCase().equals(tag.getTag().toLowerCase()) && tag2Value.toLowerCase().equals(tag.getValue().toLowerCase());
 					if(hasFirstTag || hasSecondTag) {
-						searchResults.add(photo);
+						if(!searchResults.contains(photo))
+							searchResults.add(photo);
 					}
 				}
 			}

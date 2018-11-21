@@ -217,6 +217,13 @@ public class PhotosController extends Controller{
             alert.showAndWait();
             return;
 		}
+		if(selectedAlbum.getPhotos().contains(selectedPhoto)) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("This photo is already in this album.");
+            alert.showAndWait();
+            return;
+		}
 		Photo movingPhoto = selectedPhoto;
 		deleteSelectedPhoto();
 		
@@ -242,12 +249,19 @@ public class PhotosController extends Controller{
             alert.showAndWait();
             return;
 		}
-		// copy the selected photo's image, date, file, caption, and tags
-		Photo copiedPhoto = new Photo(selectedPhoto.getImage(), selectedPhoto.getDate(), selectedPhoto.getFile());
-		copiedPhoto.setCaption(selectedPhoto.getCaption());
-		for(Tag tag: selectedPhoto.getTags()) {
-			copiedPhoto.getTags().add(tag);
+		if(selectedAlbum.getPhotos().contains(selectedPhoto)) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("This photo is already in this album.");
+            alert.showAndWait();
+            return;
 		}
+		// copy the selected photo's image, date, file, caption, and tags
+		Photo copiedPhoto = selectedPhoto;
+//		copiedPhoto.setCaption(selectedPhoto.getCaption());
+//		for(Tag tag: selectedPhoto.getTags()) {
+//			copiedPhoto.getTags().add(tag);
+//		}
 		selectedAlbum.addToAlbum(copiedPhoto);
 		
 		if(selectedAlbum == currentAlbum) {
