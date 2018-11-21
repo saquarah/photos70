@@ -155,7 +155,7 @@ public class AlbumHomeController extends Controller{
 	public void searchOption(ActionEvent e) {
 		searchB.setVisible(true);
 		makeTagStuffGoAway();
-		String selectedOption = searchOptionBox.getSelectionModel().getSelectedItem();
+		selectedOption = searchOptionBox.getSelectionModel().getSelectedItem();
 		if(selectedOption.equals(DATE_SEARCH)) {
 			setDateSearchVisibility(true);
 		} else if (selectedOption.equals(SINGLE_TAG_SEARCH)) {
@@ -173,7 +173,15 @@ public class AlbumHomeController extends Controller{
 	
 	@FXML
 	public void search(ActionEvent e) {
-		
+		if(selectedOption.equals(DATE_SEARCH)) {
+			
+		} else if(selectedOption.equals(SINGLE_TAG_SEARCH)) {
+			
+		} else if (selectedOption.equals(CONJUNCTIVE_SEARCH)) {
+			
+		} else if (selectedOption.equals(DISJUNCTIVE_SEARCH)) {
+			
+		}
 	}
 	
 	@FXML
