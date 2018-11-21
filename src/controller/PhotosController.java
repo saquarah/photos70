@@ -70,6 +70,7 @@ public class PhotosController extends Controller{
 		photoList.add(newPhoto);
 		addToTilePane(newPhoto);
 		currentAlbum.addToAlbum(newPhoto);
+		albumsListView.refresh();
 	}
 	
 	@FXML
@@ -86,7 +87,7 @@ public class PhotosController extends Controller{
 		// from this album's photo list as well, but we don't have that 
 		// in place yet.
 		deleteSelectedPhoto();
-		
+		albumsListView.refresh();
 	}
 	
 	@FXML
@@ -215,6 +216,7 @@ public class PhotosController extends Controller{
 		deleteSelectedPhoto();
 		
 		selectedAlbum.addToAlbum(movingPhoto);
+		albumsListView.refresh();
 		
 	}
 	
@@ -247,6 +249,7 @@ public class PhotosController extends Controller{
 			photoList.add(copiedPhoto);
 			addToTilePane(copiedPhoto);
 		}
+		albumsListView.refresh();
 	}
 	
 	@FXML
