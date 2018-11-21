@@ -38,5 +38,10 @@
       <Label layoutX="346.0" layoutY="58.0" text="Albums" />
       <Button fx:id="openB" layoutX="271.0" layoutY="370.0" mnemonicParsing="false" onAction="#openAlbum" text="Open album" />
       <ListView fx:id="albumListView" layoutX="14.0" layoutY="84.0" prefHeight="279.0" prefWidth="743.0" />
+      <Label fx:id="dateFormatLbl" layoutX="791.0" layoutY="84.0" prefHeight="17.0" prefWidth="203.0" text="Date format: dd/MM/yyyy HH:mm:ss" />
+      <Button fx:id="cancelSearchBtn" layoutX="850.0" layoutY="520.0" mnemonicParsing="false" onAction="#cancelSearch" text="Cancel" />
+      <Button fx:id="cancelAlbumBtn" layoutX="199.0" layoutY="440.0" mnemonicParsing="false" onAction="#cancelAlbumOperation" text="Cancel" />
+      <TextField fx:id="searchAlbumNameTxt" layoutX="802.0" layoutY="453.0" promptText="Enter name for the album" />
+      <Button fx:id="saveSearchAlbumBtn" layoutX="854.0" layoutY="478.0" mnemonicParsing="false" onAction="#saveSearchAlbum" text="Save" />
    </children>
 </AnchorPane>

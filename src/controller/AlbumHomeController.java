@@ -31,7 +31,7 @@ public class AlbumHomeController extends Controller{
 	String selectedOption;
 	
 	@FXML
-	Label typeSearchLbl, dateLbl;
+	Label typeSearchLbl, dateLbl, dateFormatLbl;
 	
 	@FXML
 	ListView<Album> albumListView;
@@ -40,9 +40,9 @@ public class AlbumHomeController extends Controller{
 	ComboBox<String> searchOptionBox;
 	
 	@FXML
-	Button adminB, quitB, createB, renameB, deleteB, logoutB, saveB;
+	Button adminB, quitB, createB, renameB, deleteB, logoutB, saveB, saveSearchAlbumBtn;
 	@FXML
-	Button searchB, newAlbumResultsB, openB;
+	Button searchB, newAlbumResultsB, openB, cancelSearchBtn, cancelAlbumBtn;
 	
 	@FXML
 	TextField albumNameTxt;
@@ -52,6 +52,8 @@ public class AlbumHomeController extends Controller{
 	TextField secondTagNameTxt, secondTagValueTxt;
 	@FXML
 	TextField startDateTxt, endDateTxt;
+	@FXML
+	TextField searchAlbumNameTxt;
 	
 	Album selectedAlbum;
 	
@@ -67,11 +69,16 @@ public class AlbumHomeController extends Controller{
 		searchOptionBox.getSelectionModel().clearSelection();
 		selectedOption = null;
 		
+		searchAlbumNameTxt.setVisible(false);
+		saveSearchAlbumBtn.setVisible(false);
+		cancelSearchBtn.setVisible(false);
+		cancelAlbumBtn.setVisible(false);
 		searchB.setVisible(false);
 		newAlbumResultsB.setVisible(false);
 		makeTagStuffGoAway();
 		setDateSearchVisibility(false);
 		setCreationVisibility(false);
+		
 		albumListView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> selectAlbum());
 		if(!currentUser().getUserName().equals("admin")) {
 			adminB.setVisible(false);
@@ -155,14 +162,17 @@ public class AlbumHomeController extends Controller{
 	
 	@FXML
 	public void searchOption(ActionEvent e) {
+		dateFormatLbl.setVisible(false);
 		searchB.setVisible(true);
 		makeTagStuffGoAway();
 		selectedOption = searchOptionBox.getSelectionModel().getSelectedItem();
 		if(selectedOption != null) {
 			if(selectedOption.equals(DATE_SEARCH)) {
+				dateFormatLbl.setVisible(true);
 				setDateSearchVisibility(true);
 			} else if (selectedOption.equals(SINGLE_TAG_SEARCH)) {
 				showFirstTag();
+				
 			} else if (selectedOption.equals(CONJUNCTIVE_SEARCH)) {
 				showFirstTag();
 				showSecondTag();
@@ -172,6 +182,7 @@ public class AlbumHomeController extends Controller{
 				showSecondTag();
 				typeSearchLbl.setText("OR");
 			}
+			
 		}
 	}
 	
@@ -186,15 +197,78 @@ public class AlbumHomeController extends Controller{
 		ObservableList<Photo> searchResults = searchResultsController.searchResults;
 		if(searchResults.isEmpty()) {
 			newAlbumResultsB.setVisible(false);
+			cancelSearchBtn.setVisible(false);
+			secondaryStage.hide();
 		} else {
 			secondaryStage.show();
+			newAlbumResultsB.setVisible(true);
+			cancelSearchBtn.setVisible(true);
 		}
 		
 	}
 	
 	@FXML
+	public void cancelAlbumOperation(ActionEvent e) {
+		albumNameTxt.clear();
+		albumNameTxt.setVisible(false);
+		saveB.setVisible(false);
+	}
+	
+	@FXML
 	public void createNewAlbumWithResults(ActionEvent e) {
+		searchAlbumNameTxt.setVisible(true);
+		saveSearchAlbumBtn.setVisible(true);
+	}
+	
+	@FXML
+	public void saveSearchAlbum(ActionEvent e) {
+		String albumName = searchAlbumNameTxt.getText().trim();
+		if(albumName.length() == 0) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No name entered.");
+            alert.showAndWait();
+            return;
+		}
+		if (!albumInList(albumName)) {
+			Album newAlbum = new Album(albumName);
+			
+			for(Photo photo: searchResultsController.searchResults) {
+				newAlbum.addToAlbum(photo);
+			}
+			albumList.add(newAlbum);
+			currentUser().getAlbumList().add(newAlbum);
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("This album name already exist. Choose a new name.");
+            alert.showAndWait();
+            searchAlbumNameTxt.clear();
+            searchAlbumNameTxt.setPromptText("Enter name");
+            
+            return;
+			
+		}
+		albumListView.refresh();
+		searchAlbumNameTxt.clear();
+		searchAlbumNameTxt.setVisible(false);
+		newAlbumResultsB.setVisible(false);
+		saveSearchAlbumBtn.setVisible(false);
+		cancelSearchBtn.setVisible(false);
+		clearSearchFields();
+		secondaryStage.hide();
 		
+	}
+	
+	@FXML
+	public void cancelSearch(ActionEvent e) {
+		searchAlbumNameTxt.clear();
+		searchAlbumNameTxt.setVisible(false);
+		newAlbumResultsB.setVisible(false);
+		saveSearchAlbumBtn.setVisible(false);
+		clearSearchFields();
+		secondaryStage.hide();
+		cancelSearchBtn.setVisible(false);
 	}
 	
 	@FXML
@@ -277,6 +351,7 @@ public class AlbumHomeController extends Controller{
 		endDateTxt.setVisible(false);
 		dateLbl.setVisible(false);
 		typeSearchLbl.setVisible(false);
+		dateFormatLbl.setVisible(false);
 	}
 	
 	private void clearSearchFields() {
@@ -292,6 +367,7 @@ public class AlbumHomeController extends Controller{
 		startDateTxt.setVisible(true);
 		endDateTxt.setVisible(true);
 		dateLbl.setVisible(true);
+		dateFormatLbl.setVisible(true);
 	}
 	
 	private void conjunctiveLabel() {
