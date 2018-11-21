@@ -14,7 +14,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.User;
-
+/**
+ *  This class deals with the logic in the Admin screen
+ * @author Sarah Squillace, Nikita Zala
+ *
+ */
 public class AdminController extends Controller{
 	private User selectedUser;
 	

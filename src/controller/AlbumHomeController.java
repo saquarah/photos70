@@ -20,7 +20,11 @@ import javafx.scene.control.TextField;
 import model.Album;
 import model.Photo;
 import model.User;
-
+/**
+ * This class deals with the logic in the albums screen.
+ * @author Sarah Squillace, Nikita Zala
+ *
+ */
 public class AlbumHomeController extends Controller{
 	ObservableList<Photo> photosList = FXCollections.observableArrayList();
 	private final static String DATE_SEARCH = "Date range search";

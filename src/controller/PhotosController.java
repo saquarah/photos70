@@ -31,7 +31,11 @@ import model.Album;
 import model.Photo;
 import model.Tag;
 import model.User;
-
+/**
+ * This class deals with the logic inside of an album viewing photos
+ * @author Sarah Squillace, Nikita Zala
+ *
+ */
 public class PhotosController extends Controller{
 	private ObservableList<Photo> photoList = FXCollections.observableArrayList();
 	private ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();

@@ -16,6 +16,11 @@ import model.Album;
 import model.Photo;
 import model.Tag;
 
+/**
+ * This class deals with the logic of searching for albums
+ * @author Sarah Squillace, Nikita Zala
+ *
+ */
 public class SearchResultsController extends Controller {
 
 	private final static String DATE_SEARCH = "Date range search";

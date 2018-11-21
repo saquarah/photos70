@@ -15,6 +15,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
 
+/**
+ * This class deals with the logic in the login screen
+ * @author  Sarah Squillace, Nikita Zala
+ *
+ */
 public class LoginController extends Controller{
 	
 	/**

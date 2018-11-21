@@ -17,6 +17,11 @@ import model.Album;
 import model.Photo;
 import model.User;
 
+/**
+ * This class deals with the logic in the photo display screen
+ * @author Sarah Squillace, Nikita Zala
+ *
+ */
 public class PhotoDisplayController extends Controller{
 	private static final double FIT_HEIGHT = 393.0;
 	private static final double FIT_WIDTH = 878.0;

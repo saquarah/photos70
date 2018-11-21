@@ -6,6 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This class models an Album
+ * @author Sarah Squillace, Nikita Zala
+ *
+ */
 public class Album implements Serializable{
 	private String name;
 	private List<Photo> photos;

@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
+/**
+ * This calss models a user
+ * @author Sarah Squillace, Nikita Zala
+ *
+ */
 public class User implements Serializable{
 	private String name;
 	private List<Album> myAlbums;

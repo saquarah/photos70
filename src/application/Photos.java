@@ -7,7 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-
+/**
+ * This class launches the app
+ * @author Sarah Squillace, Nikita Zala
+ * 
+ */
 public class Photos extends Application{
 
 	@Override

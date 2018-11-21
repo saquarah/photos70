@@ -2,6 +2,11 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * This class models a Tag
+ * @author Sarah Squillace, Nikita Zala
+ *
+ */
 public class Tag implements Serializable{
 	private String type, value;
 	/**

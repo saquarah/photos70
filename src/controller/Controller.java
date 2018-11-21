@@ -19,7 +19,12 @@ import javafx.stage.Stage;
 import model.Album;
 import model.Photo;
 import model.User;
-
+/**
+ * This class mainly deals with loading the FXML and data and changing screens
+ * It is the parent to all controllers.
+ * @author  Sarah Squillace, Nikita Zala
+ *
+ */
 public class Controller {
 	/**
 	 * The Scene for the login screen

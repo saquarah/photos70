@@ -18,6 +18,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+/**
+ * This class models a photo
+ * @author Sarah Squillace, Nikita Zala
+ *
+ */
 public class Photo implements Serializable{
 	
 	private static final long serialVersionUID = -6324409348554636338L;
