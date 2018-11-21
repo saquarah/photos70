@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -187,6 +189,7 @@ public class AlbumHomeController extends Controller{
 	}
 	
 	private void loadAlbumList() {
+		albumList.clear();
 		if(albumList.isEmpty()) { // if the album is empty then the user has just logged in
 			for(Album album: currentUser().getAlbumList()) { // fill the observable album list with the user's albums
 				albumList.add(album);
@@ -194,6 +197,7 @@ public class AlbumHomeController extends Controller{
 			}
 		}
 		albumListView.setItems(albumList); // set the list view
+		albumListView.refresh();
 	}
 	
 	private void selectAlbum() {

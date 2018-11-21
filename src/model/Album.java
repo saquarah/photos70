@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Album implements Serializable{
@@ -15,6 +16,8 @@ public class Album implements Serializable{
 	public Album(String name) {
 		this.name = name;
 		this.photos = new ArrayList<Photo>();
+		earliestDate = null;
+		latestDate = null;
 	}
 	
 	public String getName() {
@@ -22,7 +25,12 @@ public class Album implements Serializable{
 	}
 	
 	public String toString() {
-		return name;
+		if(photos.size() == 0) {
+			return name + " | 0 photos |";
+		}
+		String strEarlyDate = earliestDate.getTime().toString();
+		String strLateDate = latestDate.getTime().toString();
+		return name + "|" + photos.size() + " photos | From " + strEarlyDate + " to " + strLateDate;
 	}
 	
 	public void setName(String name) {
@@ -31,13 +39,43 @@ public class Album implements Serializable{
 	
 	public void addToAlbum(Photo photo) {
 		photos.add(photo);
+		updateEarliestDate();
+		updateLatestDate();
 	}
 	
 	public void removeFromAlbum(Photo photo) {
 		photos.remove(photo);
+		updateEarliestDate();
+		updateLatestDate();
 	}
 	
 	public List<Photo> getPhotos() {
 		return photos;
+	}
+	
+	private void updateEarliestDate() {
+		if(photos.size() == 0) { // if there are no photos, there is no earliest date
+			earliestDate = null;
+			return;
+		}
+		earliestDate = photos.get(0).getDate(); // set earliest date to first element
+		for(int i = 1; i < photos.size(); i++) {
+			if(photos.get(i).getDate().compareTo(earliestDate) < 0) {
+				earliestDate = photos.get(i).getDate();
+			}
+		}
+		
+	}
+	private void updateLatestDate() {
+		if(photos.size() == 0) { // if there are no photos, there is no latest date
+			latestDate = null;
+			return;
+		}
+		latestDate = photos.get(0).getDate(); // set latest date to first element
+		for(int i = 1; i < photos.size(); i++) {
+			if(photos.get(i).getDate().compareTo(latestDate) > 0) {
+				latestDate = photos.get(i).getDate();
+			}
+		}
 	}
 }

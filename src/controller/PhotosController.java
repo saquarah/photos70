@@ -369,4 +369,5 @@ public class PhotosController extends Controller{
 			}
 		});
 	}
+	
 }

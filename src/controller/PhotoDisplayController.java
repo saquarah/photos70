@@ -90,16 +90,17 @@ public class PhotoDisplayController extends Controller{
 		double photoHeight = currentPhoto.getImage().getHeight();
 		double photoWidth = currentPhoto.getImage().getWidth();
 		
-		if(photoHeight < imageView.getFitHeight()) {
+		if(photoHeight < FIT_HEIGHT) {
 			imageView.setFitHeight(photoHeight);
 		} else {
 			imageView.setFitHeight(FIT_HEIGHT);
 		}
 		
-		if(photoWidth < imageView.getFitWidth()) {
+		if(photoWidth < FIT_WIDTH) {
 			imageView.setFitWidth(photoWidth);
 			
-			imageView.setLayoutX(ANCHOR_WIDTH/2.0 - photoWidth / 2.0);
+//			imageView.setLayoutX(FIT_WIDTH/2.0 - photoWidth / 2.0 - imageView.getLayoutBounds().getMinX());
+			imageView.setLayoutX(FIT_WIDTH/2.0 - photoWidth / 2.0);
 		} else {
 			imageView.setFitWidth(FIT_WIDTH);
 		}
