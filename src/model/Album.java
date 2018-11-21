@@ -2,11 +2,15 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Album implements Serializable{
 	private String name;
 	List<Photo> photos;
+	private Calendar earliestDate = Calendar.getInstance();
+	private Calendar latestDate = Calendar.getInstance();
+	
 	
 	public Album(String name) {
 		this.name = name;
@@ -23,6 +27,14 @@ public class Album implements Serializable{
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void addToAlbum(Photo photo) {
+		photos.add(photo);
+	}
+	
+	public void removeFromAlbum(Photo photo) {
+		photos.remove(photo);
 	}
 	
 	public List<Photo> getPhotos() {

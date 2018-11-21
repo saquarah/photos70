@@ -69,7 +69,7 @@ public class PhotosController extends Controller{
 		Photo newPhoto = fileToPhoto(file);
 		photoList.add(newPhoto);
 		addToTilePane(newPhoto);
-		currentAlbum.getPhotos().add(newPhoto);
+		currentAlbum.addToAlbum(newPhoto);
 	}
 	
 	@FXML
@@ -214,7 +214,7 @@ public class PhotosController extends Controller{
 		Photo movingPhoto = selectedPhoto;
 		deleteSelectedPhoto();
 		
-		selectedAlbum.getPhotos().add(movingPhoto);
+		selectedAlbum.addToAlbum(movingPhoto);
 		
 	}
 	
@@ -241,7 +241,7 @@ public class PhotosController extends Controller{
 		for(Tag tag: selectedPhoto.getTags()) {
 			copiedPhoto.getTags().add(tag);
 		}
-		selectedAlbum.getPhotos().add(copiedPhoto);
+		selectedAlbum.addToAlbum(copiedPhoto);
 		
 		if(selectedAlbum == currentAlbum) {
 			photoList.add(copiedPhoto);
@@ -297,7 +297,7 @@ public class PhotosController extends Controller{
 	private void deleteSelectedPhoto() {
 		tilePane.getChildren().remove(imageViewList.indexOf(selectedImageView)); // remove from tilePane
 		photoList.remove(selectedPhoto);
-		currentAlbum.getPhotos().remove(selectedPhoto);
+		currentAlbum.removeFromAlbum(selectedPhoto);
 		imageViewList.remove(selectedImageView);
 		selectedPhoto = null;
 		selectedImageView = null;
