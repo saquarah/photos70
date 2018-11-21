@@ -56,7 +56,7 @@ public class SearchResultsController extends Controller {
 				// shut down this controller
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	            alert.setTitle("Error");
-	            alert.setContentText("One or more of the entered dates do not match the format: dd/MM/yyyy HH:mm:ss");
+	            alert.setContentText("One or more of the entered dates do not match the format: dd/MM/yyyy");
 	            alert.showAndWait();
 	            close();
 	            return;
@@ -111,6 +111,12 @@ public class SearchResultsController extends Controller {
 		close();
 	}
 	private void dateSearch(Calendar startCal, Calendar endCal) {
+		
+		SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy");
+		endCal.add(Calendar.DATE, 1);
+		endCal.add(Calendar.MILLISECOND, -1);
+		System.out.println(startCal.getTime());
+		System.out.println(endCal.getTime());
 		for(Album album: currentUser().getAlbumList()) {
 			for(Photo photo: album.getPhotos()) {
 				if(photo.getDate().compareTo(startCal) >= 0 && photo.getDate().compareTo(endCal) <= 0) {
@@ -175,7 +181,7 @@ public class SearchResultsController extends Controller {
 	}
 	
 	private boolean matchesFormat(String date) {
-		SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy");
 		spf.setLenient(false);
 		try {
 			spf.parse(date.trim());
@@ -186,7 +192,7 @@ public class SearchResultsController extends Controller {
 	}
 	
 	private Calendar getCal(String strDate) {
-		SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy");
 		spf.setLenient(false);
 		Date date = null;
 		try {
