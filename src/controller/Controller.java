@@ -26,14 +26,17 @@ public class Controller {
 	static Scene albumHomeScene;
 	static Scene photosScene;
 	static Scene photoDisplayScene;
+	static Scene searchResultsScene;
 	
 	static LoginController loginController;
 	static AdminController adminController;
 	static AlbumHomeController albumController;
 	static PhotosController photosController;
 	static PhotoDisplayController photoDisplayController;
+	static SearchResultsController searchResultsController;
 	
 	static Stage primaryStage;
+	static Stage secondaryStage;
 	
 	private static User user;
 	
@@ -46,7 +49,17 @@ public class Controller {
 	
 	public static void initializeFXML(Stage primaryStage) throws IOException {
 		Controller.primaryStage = primaryStage;
-//		
+		secondaryStage = new Stage();
+		secondaryStage.setHeight(400.0);
+		secondaryStage.setWidth(600.0);
+		
+		FXMLLoader searchResultsLoader = new FXMLLoader();
+		searchResultsLoader.setLocation(Controller.class.getResource("/view/SearchResults.fxml"));
+		AnchorPane searchResultsRoot = (AnchorPane) searchResultsLoader.load();
+		searchResultsScene = new Scene(searchResultsRoot);
+		searchResultsController = searchResultsLoader.getController();
+		searchResultsController.setPrimaryStage(secondaryStage);
+		
 //		try {
 //			FileInputStream fis = new FileInputStream("UserList.dat");
 //			ObjectInputStream ois = new ObjectInputStream(fis);
@@ -104,7 +117,6 @@ public class Controller {
 		
 		
 		login();
-		
 		/*
 		 * NOTE
 		 * We may have to eventually change this so that we do not load the

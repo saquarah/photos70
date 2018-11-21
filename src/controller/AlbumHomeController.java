@@ -1,11 +1,5 @@
 package controller;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,10 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.Album;
-import model.User;
+import model.Photo;
 
 public class AlbumHomeController extends Controller{
-	
+	ObservableList<Photo> photosList = FXCollections.observableArrayList();
 	private final static String DATE_SEARCH = "Date range search";
 	private final static String SINGLE_TAG_SEARCH = "Single tag-value search";
 	private final static String CONJUNCTIVE_SEARCH = "Conjuntive tag-value search";
@@ -173,14 +167,15 @@ public class AlbumHomeController extends Controller{
 	
 	@FXML
 	public void search(ActionEvent e) {
-		if(selectedOption.equals(DATE_SEARCH)) {
-			
-		} else if(selectedOption.equals(SINGLE_TAG_SEARCH)) {
-			
-		} else if (selectedOption.equals(CONJUNCTIVE_SEARCH)) {
-			
-		} else if (selectedOption.equals(DISJUNCTIVE_SEARCH)) {
-			
+		searchResultsController.start(selectedOption, startDateTxt.getText(),
+				endDateTxt.getText(), firstTagNameTxt.getText(),
+				firstTagValueTxt.getText(), secondTagNameTxt.getText(),
+				secondTagValueTxt.getText());
+		// a 7 parameter method i am dying
+		clearSearchFields();
+		ObservableList<Photo> searchResults = searchResultsController.searchResults;
+		if(!searchResults.isEmpty()) {
+			newAlbumResultsB.setVisible(false);
 		}
 	}
 	
@@ -269,6 +264,15 @@ public class AlbumHomeController extends Controller{
 		endDateTxt.setVisible(false);
 		dateLbl.setVisible(false);
 		typeSearchLbl.setVisible(false);
+	}
+	
+	private void clearSearchFields() {
+		endDateTxt.clear();
+		firstTagNameTxt.clear();
+		firstTagValueTxt.clear();
+		secondTagNameTxt.clear();
+		secondTagValueTxt.clear();
+		startDateTxt.clear();
 	}
 	
 	private void showDateStuff() {
